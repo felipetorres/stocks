@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.adapter.GridAdapter;
 import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.model.Stock;
@@ -23,9 +22,11 @@ public class StockTask extends
 	private Activity activity;
 	private Dialog dialog;
 	private Class<? extends JSONResponseObject> clazz;
+	private GridView grid;
 
-	public StockTask(Activity activity, Class<? extends JSONResponseObject> clazz) {
+	public StockTask(Activity activity, GridView grid, Class<? extends JSONResponseObject> clazz) {
 		this.activity = activity;
+		this.grid = grid;
 		this.clazz = clazz;
 	}
 
@@ -49,11 +50,9 @@ public class StockTask extends
 
 		dialog.dismiss();
 		
-		List<Stock> stocks = result.getStocks();
-		
-		if (stocks != null) {
+		if (result != null) {
+			List<Stock> stocks = result.getStocks();
 			GridAdapter adapter = new GridAdapter(activity, stocks);
-			GridView grid = (GridView) activity.findViewById(R.id.gridView);
 			grid.setAdapter(adapter);
 		} else {
 			Toast.makeText(activity, "YAHOO tá ramelando", Toast.LENGTH_LONG).show();
