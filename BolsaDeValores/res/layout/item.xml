@@ -1,0 +1,48 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dp"
+    android:paddingBottom="8dp"
+    android:background="@drawable/back_border" >
+
+    <TextView
+		android:textColor="#fff"
+		android:textStyle="bold"    
+        android:id="@+id/item_symbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:gravity="left" />
+    
+    <TextView
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:id="@+id/item_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_symbol"
+        android:gravity="left" />
+    
+    <TextView 
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:id="@+id/item_lastTradeDate"
+        android:textSize="10sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/item_price" />
+
+    <TextView
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:id="@+id/item_percentChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_back_border"
+        android:layout_marginTop="2dp"
+    	android:layout_marginRight="2dp"
+        android:padding="6dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+
+</RelativeLayout>
