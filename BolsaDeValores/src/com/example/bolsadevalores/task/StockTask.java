@@ -52,8 +52,12 @@ public class StockTask extends
 		
 		if (result != null) {
 			List<Stock> stocks = result.getStocks();
-			GridAdapter adapter = new GridAdapter(activity, stocks);
-			grid.setAdapter(adapter);
+			if(stocks != null) {
+				GridAdapter adapter = new GridAdapter(activity, stocks);
+				grid.setAdapter(adapter);
+			} else {
+				Toast.makeText(activity, "YAHOO tá fora", Toast.LENGTH_LONG).show();
+			}
 		} else {
 			Toast.makeText(activity, "YAHOO tá ramelando", Toast.LENGTH_LONG).show();
 		}

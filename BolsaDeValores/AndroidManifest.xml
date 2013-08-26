@@ -28,20 +28,20 @@
         <activity
             android:name="com.example.bolsadevalores.activity.MyFeedActivity"
             android:label="@string/title_activity_feed" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.bolsadevalores.activity.StockActivity"/>
         </activity>
         <activity
             android:name="com.example.bolsadevalores.activity.SearchStockActivity"
             android:label="@string/title_activity_search_stock" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.StockActivity" />
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.bolsadevalores.activity.StockActivity"/>
         </activity>
         <activity
             android:name="com.example.bolsadevalores.activity.DetailsActivity"
             android:label="@string/title_activity_details" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.SearchStockActivity" />
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.bolsadevalores.activity.StockActivity"/>
         </activity>
     </application>
 

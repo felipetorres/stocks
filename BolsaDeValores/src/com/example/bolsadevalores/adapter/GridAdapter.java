@@ -46,12 +46,31 @@ public class GridAdapter extends BaseAdapter{
 		TextView price = (TextView) layout.findViewById(R.id.item_price);
 		TextView lastTradeDate = (TextView) layout.findViewById(R.id.item_lastTradeDate);
 		
+		String change = stocks.get(position).PercentChange;
+		
 		symbol.setText(stocks.get(position).Symbol);
-		percentChange.setText(stocks.get(position).PercentChange);
+		percentChange.setText(change);
 		price.setText(stocks.get(position).AskRealtime);
 		lastTradeDate.setText(stocks.get(position).getPrettyLastTradeDateAndTime());
+
+//		Pattern pattern = Pattern.compile("[+-](.*?)%");
+//		Matcher matcher = pattern.matcher(change);
+//		String value = "";
+//		
+//		if(matcher.matches()) {
+//			value = matcher.group(1);
+//		}
+		
+		setBackgroundColorTo(percentChange, change);
 		
 		return layout;
 	}
 
+	private void setBackgroundColorTo(TextView percentChange, String change) {
+		if(change.startsWith("-")) {
+			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.negativo));
+		} else {
+			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.positivo));
+		}
+	}
 }

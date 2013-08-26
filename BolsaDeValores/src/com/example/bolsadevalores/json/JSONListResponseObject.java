@@ -10,7 +10,8 @@ public class JSONListResponseObject implements JSONResponseObject{
 	private Query query;
 
 	public List<Stock> getStocks() {
-		return this.query.results.quote;
+		if(query.results != null) return this.query.results.quote;
+		return null;
 	}
 	
 	private class Query {

@@ -22,8 +22,14 @@ public class DetailsActivity extends ActionBarActivity {
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
 		Suggestion stock = (Suggestion) getIntent().getSerializableExtra("searched_stock");
+		String stockName = "";
+		if(stock == null) {
+			stockName = getIntent().getStringExtra("stock");
+		} else {
+			stockName = stock.toString();
+		}
 		
-		new DetailsTask(this).execute(stock.toString());
+		new DetailsTask(this).execute(stockName);
 	}
 
 	@Override
@@ -39,5 +45,4 @@ public class DetailsActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return new OptionsMenuDelegator(this).select(item);
 	}
-
 }

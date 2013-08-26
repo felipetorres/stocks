@@ -2,6 +2,7 @@ package com.example.bolsadevalores.activity;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.ContextMenu;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
 
@@ -24,7 +26,8 @@ import com.example.bolsadevalores.task.StockTask;
 
 public class StockActivity extends ActionBarActivity {
 	
-	Stock selected;
+	private Stock selected;
+	private GridView grid;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +39,25 @@ public class StockActivity extends ActionBarActivity {
 	protected void onResume() {
 		super.onResume();
 		
-		GridView grid = (GridView) findViewById(R.id.gridView);
+		grid = (GridView) findViewById(R.id.gridView);
 		
-		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(this);
+		loadStocksTo(grid);
+
+		registerForContextMenu(grid);
 		
-		List<String> bookmarkedStocks = accessor.retrieveBookmarkedStocks();
-		String[] stocks = (String[]) bookmarkedStocks.toArray();
+		grid.setOnItemClickListener(new OnItemClickListener() {
 
-		if(bookmarkedStocks.size() == 2) {
-			new StockTask(this, grid, JSONSingleResponseObject.class).execute(stocks);
-		} else if (bookmarkedStocks.size() > 2) {
-			new StockTask(this, grid, JSONListResponseObject.class).execute(stocks);
-		}
-
+			@Override
+			public void onItemClick(AdapterView<?> adapter, View view, int position,
+					long id) {
+				
+				Stock stock = (Stock) adapter.getItemAtPosition(position);
+				Intent details = new Intent(StockActivity.this, DetailsActivity.class);
+				details.putExtra("stock", stock.Symbol);
+				startActivity(details);
+			}
+			
+		});
 		
 		grid.setOnItemLongClickListener(new OnItemLongClickListener() {
 
@@ -61,7 +70,19 @@ public class StockActivity extends ActionBarActivity {
 			}
 		});
 		
-		registerForContextMenu(grid);
+	}
+
+	private void loadStocksTo(GridView grid) {
+		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(this);
+		
+		List<String> bookmarkedStocks = accessor.retrieveBookmarkedStocks();
+		String[] stocks = (String[]) bookmarkedStocks.toArray();
+
+		if(bookmarkedStocks.size() == 2) {
+			new StockTask(this, grid, JSONSingleResponseObject.class).execute(stocks);
+		} else if (bookmarkedStocks.size() > 2) {
+			new StockTask(this, grid, JSONListResponseObject.class).execute(stocks);
+		}
 	}
 
 	@Override
@@ -79,8 +100,7 @@ public class StockActivity extends ActionBarActivity {
 	}
 	
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		MenuItem remove = menu.add("Remover");
 		
 		remove.setOnMenuItemClickListener(new OnMenuItemClickListener() {
@@ -88,9 +108,9 @@ public class StockActivity extends ActionBarActivity {
 			@Override
 			public boolean onMenuItemClick(MenuItem item) {
 				new SharedPreferencesAccessor(StockActivity.this).removeFromBookmark(selected);
+				loadStocksTo(grid);
 				return false;
 			}
 		});
-		
 	}
-}
+}	
