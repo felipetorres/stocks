@@ -37,13 +37,12 @@ public class SearchStockActivity extends ActionBarActivity {
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
 		String stock = getIntent().getStringExtra("stock");
-		new YahooSuggestionsConnector(this, resultList).getFor(stock);
+		new YahooSuggestionsConnector(this, resultList).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> adapter, View view, int position,
-					long id) {
+			public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
 				
 				Suggestion suggestion = (Suggestion) adapter.getItemAtPosition(position);
 				
