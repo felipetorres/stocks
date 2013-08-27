@@ -2,20 +2,16 @@
     xmlns:com.example.bolsadevalores="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/menu_search"
+        android:title="Busca"
+        com.example.bolsadevalores:actionViewClass="android.support.v7.widget.SearchView"
+        com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
+    <item
         android:id="@+id/menu_feeds"
         android:title="Feeds"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_stock"
-        android:title="Stock"
-        com.example.bolsadevalores:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/menu_currency"
         android:title="Currency"
-        com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
-    <item
-        android:id="@+id/menu_search"
-        android:title="Busca"
-        com.example.bolsadevalores:actionViewClass="android.support.v7.widget.SearchView"
         com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
 </menu>
