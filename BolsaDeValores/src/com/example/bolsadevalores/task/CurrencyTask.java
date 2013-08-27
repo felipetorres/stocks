@@ -8,7 +8,6 @@ import org.joda.time.DateTime;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.adapter.CurrencyListAdapter;
@@ -82,8 +81,6 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 			double change = todayValue.doubleValue() / yesterdayValue.doubleValue();
 			today.getRates().put(entry.getKey(), (change - 1)*100);
 			
-			Log.i("BLA", entry.getKey() + " " + today.getRates().get(entry.getKey()));
 		}
-		
 	}
 }
