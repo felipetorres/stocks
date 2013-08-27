@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.activity.CurrencyActivity;
 import com.example.bolsadevalores.activity.MyFeedActivity;
 import com.example.bolsadevalores.activity.SearchStockActivity;
 import com.example.bolsadevalores.activity.StockActivity;
@@ -46,6 +47,10 @@ public class OptionsMenuDelegator {
 
 	public boolean select(MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.menu_currency:
+			Intent currency = new Intent(activity, CurrencyActivity.class);
+			activity.startActivity(currency);
+			return true;
 		case R.id.menu_feeds:
 			Intent feed = new Intent(activity, MyFeedActivity.class);
 			activity.startActivity(feed);

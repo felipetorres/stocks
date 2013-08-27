@@ -6,9 +6,12 @@ import java.util.Set;
 
 import org.joda.time.DateTime;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ListView;
 
+import com.example.bolsadevalores.adapter.CurrencyListAdapter;
 import com.example.bolsadevalores.json.JSONCurrencyDeserializer;
 import com.example.bolsadevalores.json.JSONCurrencyResponseObject;
 import com.example.bolsadevalores.web.HttpConnector;
@@ -17,11 +20,19 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 
-public class CurrencyTask extends AsyncTask<Object, Object, String>{
-	//http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.xchange%20where%20pair%20in%20(%22EURUSD%22%2C%22GBPUSD%22%2C%22USDBRL%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=
+public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
+	
+	private Activity activity;
+	private ListView listView;
+
+	public CurrencyTask(Activity activity, ListView listView) {
+		this.activity = activity;
+		this.listView = listView;
+	}
+	
 	
 	@Override
-	protected String doInBackground(Object... params) {
+	protected Map<String, Double> doInBackground(Object... params) {
 		
 		DateTime dateTime = new DateTime().minusDays(1);
 		String dateYesterday = dateTime.toString("yyyy-MM-dd");
@@ -48,7 +59,15 @@ public class CurrencyTask extends AsyncTask<Object, Object, String>{
 		
 		calculateChangeBetween(today,yesterday);
 	
-		return null;
+		return today.getRates();
+	}
+	
+	@Override
+	protected void onPostExecute(Map<String, Double> result) {
+		
+		CurrencyListAdapter adapter = new CurrencyListAdapter(activity, result);
+		listView.setAdapter(adapter);
+		
 	}
 
 	private void calculateChangeBetween(JSONCurrencyResponseObject today,

@@ -8,11 +8,11 @@ package com.tinymission.rss;
 
 public final class R {
 	public static final class id {
-		public static final int feed_item_description = 0x7f05004c;
-		public static final int feed_item_image = 0x7f05004a;
-		public static final int feed_item_title = 0x7f05004b;
-		public static final int feed_item_author = 0x7f05004e;
-		public static final int feed_item_pubDate = 0x7f05004d;
+		public static final int feed_item_description = 0x7f05004d;
+		public static final int feed_item_image = 0x7f05004b;
+		public static final int feed_item_title = 0x7f05004c;
+		public static final int feed_item_author = 0x7f05004f;
+		public static final int feed_item_pubDate = 0x7f05004e;
 	}
 	public static final class style {
 		public static final int FeedListItem = 0x7f0b0080;
@@ -29,8 +29,8 @@ public final class R {
 		public static final int feed_bg_top = 0x7f070003;
 	}
 	public static final class layout {
-		public static final int feed_list_item = 0x7f03001c;
-		public static final int feed = 0x7f03001b;
+		public static final int feed_list_item = 0x7f03001d;
+		public static final int feed = 0x7f03001c;
 	}
 	public static final class drawable {
 		public static final int toolbar_logo = 0x7f02005b;

@@ -5,6 +5,10 @@
         android:id="@+id/menu_feeds"
         android:title="Feeds"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
+	<item
+        android:id="@+id/menu_currency"
+        android:title="Currency"
+        com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/menu_search"
         android:title="Busca"

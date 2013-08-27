@@ -6,10 +6,6 @@
         android:title="Feeds"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/menu_currency"
-        android:title="Currency"
-        com.example.bolsadevalores:showAsAction="ifRoom"/>
-    <item
         android:id="@+id/menu_search"
         android:title="Busca"
         com.example.bolsadevalores:actionViewClass="android.support.v7.widget.SearchView"
