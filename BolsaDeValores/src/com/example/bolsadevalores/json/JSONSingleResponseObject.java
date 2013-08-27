@@ -12,7 +12,7 @@ public class JSONSingleResponseObject implements JSONResponseObject{
 
 	@Override
 	public List<Stock> getStocks() {
-		if(this.query.results != null) {
+		if((this.query != null) && (this.query.results != null)) {
 			return Arrays.asList(this.query.results.quote);
 		}
 		return null;
