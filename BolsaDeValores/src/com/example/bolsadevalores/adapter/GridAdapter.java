@@ -69,8 +69,10 @@ public class GridAdapter extends BaseAdapter{
 	private void setBackgroundColorTo(TextView percentChange, String change) {
 		if(change.startsWith("-")) {
 			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.negativo));
-		} else {
+		} else if(change.startsWith("+")) {
 			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.positivo));
+		} else {
+			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.neutro));
 		}
 	}
 }
