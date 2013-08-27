@@ -4,13 +4,12 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.bolsadevalores.adapter.GridAdapter;
+import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.web.YahooWebConnector;
@@ -20,20 +19,20 @@ public class StockTask extends
 		AsyncTask<String, Object, JSONResponseObject> {
 
 	private Activity activity;
-	private Dialog dialog;
 	private Class<? extends JSONResponseObject> clazz;
 	private GridView grid;
+	private ProgressManager progressManager;
 
 	public StockTask(Activity activity, GridView grid, Class<? extends JSONResponseObject> clazz) {
 		this.activity = activity;
 		this.grid = grid;
 		this.clazz = clazz;
+		this.progressManager = new ProgressManager(activity);
 	}
 
 	@Override
 	protected void onPreExecute() {
-		dialog = new ProgressDialog(activity);
-		dialog.show();
+		progressManager.show();
 	}
 
 	@Override
@@ -48,7 +47,7 @@ public class StockTask extends
 	@Override
 	protected void onPostExecute(JSONResponseObject result) {
 
-		dialog.dismiss();
+		progressManager.hide();
 		
 		if (result != null) {
 			List<Stock> stocks = result.getStocks();

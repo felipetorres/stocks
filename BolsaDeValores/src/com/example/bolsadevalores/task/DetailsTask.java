@@ -4,12 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.web.YahooWebConnector;
@@ -19,16 +18,16 @@ public class DetailsTask extends
 		AsyncTask<String, Object, JSONSingleResponseObject> {
 
 	private Activity activity;
-	private Dialog dialog;
+	private ProgressManager progressManager;
 
 	public DetailsTask(Activity activity) {
 		this.activity = activity;
+		this.progressManager = new ProgressManager(activity);
 	}
 
 	@Override
 	protected void onPreExecute() {
-		dialog = new ProgressDialog(activity);
-		dialog.show();
+		progressManager.show();
 	}
 
 	@Override
@@ -43,7 +42,8 @@ public class DetailsTask extends
 	@Override
 	protected void onPostExecute(JSONSingleResponseObject result) {
 
-		dialog.dismiss();
+		progressManager.hide();
+		
 		Stock stock = result.getStocks().get(0);
 		
 		TextView name = (TextView) activity.findViewById(R.id.details_name);

@@ -1002,7 +1002,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f05002f;
         public static final int action_mode_bar_stub=0x7f05002e;
         public static final int action_mode_close_button=0x7f050022;
-        public static final int action_settings=0x7f05005a;
+        public static final int action_settings=0x7f05005b;
         public static final int activity_chooser_view_content=0x7f050023;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1043,14 +1043,15 @@ containing a value of this type.
         public static final int left_icon=0x7f050031;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050027;
-        public static final int menu_currency=0x7f050059;
-        public static final int menu_feeds=0x7f050056;
-        public static final int menu_search=0x7f050057;
-        public static final int menu_stock=0x7f050058;
+        public static final int menu_currency=0x7f05005a;
+        public static final int menu_feeds=0x7f050059;
+        public static final int menu_search=0x7f050058;
         public static final int middle=0x7f050012;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
+        public static final int progress=0x7f050056;
+        public static final int progressBar=0x7f050057;
         public static final int progress_circular=0x7f050034;
         public static final int progress_horizontal=0x7f050035;
         public static final int radio=0x7f05002d;
@@ -1140,7 +1141,8 @@ containing a value of this type.
         public static final int item=0x7f03001e;
         public static final int item_currency=0x7f03001f;
         public static final int layout_feed=0x7f030020;
-        public static final int support_simple_spinner_dropdown_item=0x7f030021;
+        public static final int progress=0x7f030021;
+        public static final int support_simple_spinner_dropdown_item=0x7f030022;
     }
     public static final class menu {
         public static final int currency=0x7f0c0000;
@@ -1210,6 +1212,7 @@ containing a value of this type.
          */
         public static final int FeedList=0x7f0b007f;
         public static final int FeedListItem=0x7f0b0080;
+        public static final int Progress_Background=0x7f0b0088;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0b0061;

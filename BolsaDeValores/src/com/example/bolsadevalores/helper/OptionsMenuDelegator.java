@@ -12,7 +12,6 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.activity.CurrencyActivity;
 import com.example.bolsadevalores.activity.MyFeedActivity;
 import com.example.bolsadevalores.activity.SearchStockActivity;
-import com.example.bolsadevalores.activity.StockActivity;
 
 public class OptionsMenuDelegator {
 
@@ -54,10 +53,6 @@ public class OptionsMenuDelegator {
 		case R.id.menu_feeds:
 			Intent feed = new Intent(activity, MyFeedActivity.class);
 			activity.startActivity(feed);
-			return true;
-		case R.id.menu_stock:
-			Intent stock = new Intent(activity, StockActivity.class);
-			activity.startActivity(stock);
 			return true;
 		default:
 			return false;

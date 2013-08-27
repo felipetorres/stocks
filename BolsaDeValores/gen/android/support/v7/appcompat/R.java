@@ -257,7 +257,7 @@ public final class R {
 		public static final int abc_action_bar_home = 0x7f030003;
 		public static final int abc_action_bar_decor_overlay = 0x7f030002;
 		public static final int abc_list_menu_item_radio = 0x7f030013;
-		public static final int support_simple_spinner_dropdown_item = 0x7f030021;
+		public static final int support_simple_spinner_dropdown_item = 0x7f030022;
 		public static final int abc_activity_chooser_view_list_item = 0x7f03000e;
 		public static final int abc_activity_chooser_view_include = 0x7f03000d;
 		public static final int abc_action_bar_title_item = 0x7f030006;

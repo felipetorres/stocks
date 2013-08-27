@@ -3,6 +3,10 @@
     <style name="AppBaseTheme" parent="@style/Theme.AppCompat" />
 
     <style name="AppTheme" parent="AppBaseTheme" />
+    
+    <style name="Progress_Background">
+        <item name="android:background">@android:color/black</item>
+    </style>
 
     <!-- Feed List -->
     <style name="FeedList" parent="@android:style/Widget.ListView.White">
