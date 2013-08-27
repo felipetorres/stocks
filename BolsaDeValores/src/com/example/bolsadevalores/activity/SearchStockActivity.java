@@ -21,7 +21,7 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
-import com.example.bolsadevalores.web.YahooSuggestionsConnector;
+import com.example.bolsadevalores.task.SearchTask;
 
 public class SearchStockActivity extends ActionBarActivity {
 
@@ -37,7 +37,7 @@ public class SearchStockActivity extends ActionBarActivity {
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
 		String stock = getIntent().getStringExtra("stock");
-		new YahooSuggestionsConnector(this, resultList).execute(stock);
+		new SearchTask(this, resultList).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 

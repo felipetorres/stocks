@@ -2,13 +2,7 @@ package com.example.bolsadevalores.web;
 
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
-
-public class YahooWebConnector {
+public class YahooWebConnector implements Connector{
 
 	private static String YAHOO_FINANCE;
 	
@@ -27,18 +21,8 @@ public class YahooWebConnector {
 		YAHOO_FINANCE += "%22%22)%0A%09%09&format=json&env=http%3A%2F%2Fdatatables.org%2Falltables.env&callback=";
 	}
 
-
-	public String conecta() {
-		try {
-			HttpClient client = new DefaultHttpClient();
-			HttpGet get = new HttpGet(YAHOO_FINANCE);
-			get.setHeader("accepts", "application/json");
-			HttpResponse response = client.execute(get);
-			
-			return EntityUtils.toString(response.getEntity());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	@Override
+	public String connect() {
+		return new HttpConnector().getTo(YAHOO_FINANCE);
 	}
 }

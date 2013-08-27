@@ -41,7 +41,7 @@ public class StockTask extends
 
 		List<String> stockSymbols = Arrays.asList(params);
 
-		String resposta = new YahooWebConnector(stockSymbols).conecta();
+		String resposta = new YahooWebConnector(stockSymbols).connect();
 		return new Gson().fromJson(resposta, clazz);
 	}
 

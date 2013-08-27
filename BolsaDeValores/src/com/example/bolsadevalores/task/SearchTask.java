@@ -1,4 +1,4 @@
-package com.example.bolsadevalores.web;
+package com.example.bolsadevalores.task;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -19,12 +19,12 @@ import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.google.gson.Gson;
 
-public class YahooSuggestionsConnector extends AsyncTask<String, Object, String> {
+public class SearchTask extends AsyncTask<String, Object, String> {
 
 	private Context context;
 	private ListView listView;
 
-	public YahooSuggestionsConnector(Context context, ListView listView) {
+	public SearchTask(Context context, ListView listView) {
 		this.context = context;
 		this.listView = listView;
 	}
