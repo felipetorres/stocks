@@ -33,7 +33,7 @@ public final class R {
 		public static final int feed = 0x7f03001c;
 	}
 	public static final class drawable {
-		public static final int toolbar_logo = 0x7f02005b;
+		public static final int toolbar_logo = 0x7f02005d;
 		public static final int feed_list_background = 0x7f020058;
 		public static final int ic_launcher = 0x7f020059;
 	}

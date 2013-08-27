@@ -9,6 +9,7 @@
         com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/menu_feeds"
+        android:icon="@drawable/ic_rss"
         android:title="Feeds"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
     <item
