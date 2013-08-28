@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
@@ -19,9 +20,11 @@ public class DetailsTask extends
 
 	private Activity activity;
 	private ProgressManager progressManager;
+	private ErrorHandler errorHandler;
 
-	public DetailsTask(Activity activity) {
+	public DetailsTask(Activity activity, ErrorHandler errorHandler) {
 		this.activity = activity;
+		this.errorHandler = errorHandler;
 		this.progressManager = new ProgressManager(activity);
 	}
 
@@ -35,8 +38,13 @@ public class DetailsTask extends
 
 		List<String> stockSymbols = Arrays.asList(params);
 
-		String resposta = new YahooWebConnector(stockSymbols).connect();
-		return new Gson().fromJson(resposta, JSONSingleResponseObject.class);
+		String resposta;
+		try {
+			resposta = new YahooWebConnector(stockSymbols).connect();
+			return new Gson().fromJson(resposta, JSONSingleResponseObject.class);
+		} catch (Exception e) {
+			return new JSONSingleResponseObject();
+		}
 	}
 
 	@Override
@@ -44,21 +52,26 @@ public class DetailsTask extends
 
 		progressManager.hide();
 		
-		Stock stock = result.getStocks().get(0);
+		try {
+			List<Stock> stocks = result.getStocks();
+			Stock stock = stocks.get(0);
 		
-		TextView name = (TextView) activity.findViewById(R.id.details_name);
-		TextView updatedAt = (TextView) activity.findViewById(R.id.details_updated_at);
-		TextView dayValue = (TextView) activity.findViewById(R.id.details_day);
-		TextView lastValue = (TextView) activity.findViewById(R.id.details_recent);
-		TextView previousCloseValue = (TextView) activity.findViewById(R.id.details_previous_close);
-		TextView openValue = (TextView) activity.findViewById(R.id.details_open);
+			TextView name = (TextView) activity.findViewById(R.id.details_name);
+			TextView updatedAt = (TextView) activity.findViewById(R.id.details_updated_at);
+			TextView dayValue = (TextView) activity.findViewById(R.id.details_day);
+			TextView lastValue = (TextView) activity.findViewById(R.id.details_recent);
+			TextView previousCloseValue = (TextView) activity.findViewById(R.id.details_previous_close);
+			TextView openValue = (TextView) activity.findViewById(R.id.details_open);
 		
-		name.setText(stock.Name);
-		updatedAt.setText(stock.getPrettyLastTradeDateAndTime());
-		dayValue.setText(stock.PercentChange);
-		lastValue.setText(stock.Ask);
-		previousCloseValue.setText(stock.PreviousClose);
-		openValue.setText(stock.Open);
+			name.setText(stock.Name);
+			updatedAt.setText(stock.getPrettyLastTradeDateAndTime());
+			dayValue.setText(stock.PercentChange);
+			lastValue.setText(stock.Ask);
+			previousCloseValue.setText(stock.PreviousClose);
+			openValue.setText(stock.Open);
+		} catch(Exception e) {
+			errorHandler.onError(e);
+		}
 	}
 
 }

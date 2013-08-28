@@ -6,9 +6,9 @@ import java.util.List;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.example.bolsadevalores.adapter.GridAdapter;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.model.Stock;
@@ -22,12 +22,14 @@ public class StockTask extends
 	private Class<? extends JSONResponseObject> clazz;
 	private GridView grid;
 	private ProgressManager progressManager;
+	private ErrorHandler errorHandler;
 
-	public StockTask(Activity activity, GridView grid, Class<? extends JSONResponseObject> clazz) {
+	public StockTask(Activity activity, GridView grid, Class<? extends JSONResponseObject> clazz, ErrorHandler errorHandler) {
 		this.activity = activity;
 		this.grid = grid;
 		this.clazz = clazz;
 		this.progressManager = new ProgressManager(activity);
+		this.errorHandler = errorHandler;
 	}
 
 	@Override
@@ -40,26 +42,28 @@ public class StockTask extends
 
 		List<String> stockSymbols = Arrays.asList(params);
 
-		String resposta = new YahooWebConnector(stockSymbols).connect();
-		return new Gson().fromJson(resposta, clazz);
+		String resposta;
+		JSONResponseObject newInstance = null;
+		try {
+			newInstance = clazz.newInstance();
+			resposta = new YahooWebConnector(stockSymbols).connect();
+			return new Gson().fromJson(resposta, clazz);
+		} catch (Exception e) {
+			return newInstance;
+		}
 	}
 
 	@Override
 	protected void onPostExecute(JSONResponseObject result) {
 
 		progressManager.hide();
-		
-		if (result != null) {
+
+		try {
 			List<Stock> stocks = result.getStocks();
-			if(stocks != null) {
-				GridAdapter adapter = new GridAdapter(activity, stocks);
-				grid.setAdapter(adapter);
-			} else {
-				Toast.makeText(activity, "YAHOO tá fora", Toast.LENGTH_LONG).show();
-			}
-		} else {
-			Toast.makeText(activity, "YAHOO tá ramelando", Toast.LENGTH_LONG).show();
+			GridAdapter adapter = new GridAdapter(activity, stocks);
+			grid.setAdapter(adapter);
+		} catch(Exception e) {
+			errorHandler.onError(e);
 		}
 	}
-
 }

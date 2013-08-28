@@ -7,11 +7,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ErrorDialog;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.task.DetailsTask;
 
-public class DetailsActivity extends ActionBarActivity {
+public class DetailsActivity extends ActionBarActivity implements ErrorHandler{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +31,7 @@ public class DetailsActivity extends ActionBarActivity {
 			stockName = stock.toString();
 		}
 		
-		new DetailsTask(this).execute(stockName);
+		new DetailsTask(this, this).execute(stockName);
 	}
 
 	@Override
@@ -44,5 +46,10 @@ public class DetailsActivity extends ActionBarActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		return new OptionsMenuDelegator(this).select(item);
+	}
+
+	@Override
+	public void onError(Exception ex) {
+		new ErrorDialog(this).withText("Details error").show();
 	}
 }

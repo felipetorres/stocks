@@ -14,18 +14,14 @@ public class HttpConnector {
 		client = new DefaultHttpClient();
 	}
 
-	public String getTo(String url) {
+	public String getTo(String url) throws Exception {
 		
 		HttpGet get = new HttpGet(url);
 		get.setHeader("accepts", "application/json");
 		
 		String responseString = null;
-		try {
-			HttpResponse response = client.execute(get);
-			responseString = EntityUtils.toString(response.getEntity());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		HttpResponse response = client.execute(get);
+		responseString = EntityUtils.toString(response.getEntity());
 		
 		return responseString;
 	}

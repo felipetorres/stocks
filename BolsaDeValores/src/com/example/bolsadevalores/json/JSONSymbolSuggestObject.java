@@ -1,6 +1,7 @@
 package com.example.bolsadevalores.json;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JSONSymbolSuggestObject {
@@ -8,7 +9,10 @@ public class JSONSymbolSuggestObject {
 	ResultSet ResultSet;
 	
 	public List<Suggestion> getSuggestions() {
-		return this.ResultSet.Result;
+		if(this.ResultSet != null) {
+			return this.ResultSet.Result;
+		}
+		return new ArrayList<Suggestion>();
 	}
 	
 	private class ResultSet {

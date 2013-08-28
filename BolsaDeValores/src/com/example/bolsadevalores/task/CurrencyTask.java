@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.adapter.CurrencyListAdapter;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.json.JSONCurrencyDeserializer;
 import com.example.bolsadevalores.json.JSONCurrencyResponseObject;
 import com.example.bolsadevalores.web.HttpConnector;
@@ -23,10 +24,12 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 	
 	private Activity activity;
 	private ListView listView;
+	private ErrorHandler errorHandler;
 
-	public CurrencyTask(Activity activity, ListView listView) {
+	public CurrencyTask(Activity activity, ListView listView, ErrorHandler errorHandler) {
 		this.activity = activity;
 		this.listView = listView;
+		this.errorHandler = errorHandler;
 	}
 	
 	
@@ -44,28 +47,37 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 		
 		HttpConnector httpConnector = new HttpConnector();
 		
-		String response = httpConnector.getTo(url);
-		String responseYesterday = httpConnector.getTo(yesterdayExch);
+		try {
+			String response = httpConnector.getTo(url);
+			String responseYesterday = httpConnector.getTo(yesterdayExch);
+			
+			GsonBuilder builder = new GsonBuilder();
+			builder.registerTypeAdapter(
+					new TypeToken<Map<String, String>>() {}.getType(),
+					new JSONCurrencyDeserializer());
+			Gson gson = builder.create();
+			
+			JSONCurrencyResponseObject today = gson.fromJson(response, JSONCurrencyResponseObject.class);
+			JSONCurrencyResponseObject yesterday = gson.fromJson(responseYesterday, JSONCurrencyResponseObject.class);
+			
+			calculateChangeBetween(today,yesterday);
 		
-		GsonBuilder builder = new GsonBuilder();
-		builder.registerTypeAdapter(
-				new TypeToken<Map<String, String>>() {}.getType(),
-				new JSONCurrencyDeserializer());
-		Gson gson = builder.create();
-		
-		JSONCurrencyResponseObject today = gson.fromJson(response, JSONCurrencyResponseObject.class);
-		JSONCurrencyResponseObject yesterday = gson.fromJson(responseYesterday, JSONCurrencyResponseObject.class);
-		
-		calculateChangeBetween(today,yesterday);
-	
-		return today.getRates();
+			return today.getRates();
+			
+		} catch (Exception e) {
+			return null;
+		}
 	}
 	
 	@Override
 	protected void onPostExecute(Map<String, Double> result) {
 		
-		CurrencyListAdapter adapter = new CurrencyListAdapter(activity, result);
-		listView.setAdapter(adapter);
+		try {
+			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, result);
+			listView.setAdapter(adapter);
+		}catch (Exception e) {
+			errorHandler.onError(e);
+		}
 		
 	}
 

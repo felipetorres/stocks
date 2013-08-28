@@ -8,10 +8,12 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ErrorDialog;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.task.CurrencyTask;
 
-public class CurrencyActivity extends ActionBarActivity{
+public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +25,7 @@ public class CurrencyActivity extends ActionBarActivity{
 		
 		ListView listView = (ListView) findViewById(R.id.currency_list);
 		
-		new CurrencyTask(this, listView).execute();
+		new CurrencyTask(this, listView, this).execute();
 	}
 	
 	@Override
@@ -40,6 +42,11 @@ public class CurrencyActivity extends ActionBarActivity{
 		new OptionsMenuDelegator(this).select(item);
 		
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onError(Exception ex) {
+		new ErrorDialog(this).withText("Currency error").show();
 	}
 	
 }

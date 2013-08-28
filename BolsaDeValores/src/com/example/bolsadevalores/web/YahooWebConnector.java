@@ -22,7 +22,7 @@ public class YahooWebConnector implements Connector{
 	}
 
 	@Override
-	public String connect() {
+	public String connect() throws Exception {
 		return new HttpConnector().getTo(YAHOO_FINANCE);
 	}
 }

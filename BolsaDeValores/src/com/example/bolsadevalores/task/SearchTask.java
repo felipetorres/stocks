@@ -15,18 +15,21 @@ import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.google.gson.Gson;
 
-public class SearchTask extends AsyncTask<String, Object, String> {
+public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObject> {
 
 	private Context context;
 	private ListView listView;
+	private ErrorHandler errorHandler;
 
-	public SearchTask(Context context, ListView listView) {
+	public SearchTask(Context context, ListView listView, ErrorHandler errorHandler) {
 		this.context = context;
 		this.listView = listView;
+		this.errorHandler = errorHandler;
 	}
 
 	private URI buildURIWith(String stock) {
@@ -42,7 +45,7 @@ public class SearchTask extends AsyncTask<String, Object, String> {
 	}
 
 	@Override
-	protected String doInBackground(String... stocks) {
+	protected JSONSymbolSuggestObject doInBackground(String... stocks) {
 		String stock = stocks[0];
 		URI uri = buildURIWith(stock);
 
@@ -55,23 +58,25 @@ public class SearchTask extends AsyncTask<String, Object, String> {
 			json = EntityUtils.toString(response.getEntity())
 					.replace("YAHOO.Finance.SymbolSuggest.ssCallback(", "")
 					.replace(")", "");
-
+			
+			return new Gson().fromJson(json, JSONSymbolSuggestObject.class);
 	
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null; 
 		}
-		return json;
 	}
 	
 	@Override
-	protected void onPostExecute(String json) {
+	protected void onPostExecute(JSONSymbolSuggestObject jsonObject) {
 		
-		JSONSymbolSuggestObject jsonObject = new Gson().fromJson(json, JSONSymbolSuggestObject.class);
-		List<Suggestion> suggestions = jsonObject.getSuggestions();
-
-		ArrayAdapter<Suggestion> adapter = new ArrayAdapter<Suggestion>(
-				context, android.R.layout.simple_list_item_1, suggestions);
-		listView.setAdapter(adapter);
-
+		try {
+			List<Suggestion> suggestions = jsonObject.getSuggestions();
+	
+			ArrayAdapter<Suggestion> adapter = new ArrayAdapter<Suggestion>(
+					context, android.R.layout.simple_list_item_1, suggestions);
+			listView.setAdapter(adapter);
+		} catch (Exception e) {
+			errorHandler.onError(e);
+		}
 	}
 }

@@ -9,9 +9,8 @@ public class JSONListResponseObject implements JSONResponseObject{
 
 	private Query query;
 
-	public List<Stock> getStocks() {
-		if(query.results != null) return this.query.results.quote;
-		return null;
+	public List<Stock> getStocks() throws Exception{
+		return this.query.results.quote;
 	}
 	
 	private class Query {

@@ -18,12 +18,14 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ErrorDialog;
+import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.task.SearchTask;
 
-public class SearchStockActivity extends ActionBarActivity {
+public class SearchStockActivity extends ActionBarActivity implements ErrorHandler{
 
 	private Suggestion selected;
 	
@@ -37,7 +39,7 @@ public class SearchStockActivity extends ActionBarActivity {
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
 		String stock = getIntent().getStringExtra("stock");
-		new SearchTask(this, resultList).execute(stock);
+		new SearchTask(this, resultList, this).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -101,5 +103,10 @@ public class SearchStockActivity extends ActionBarActivity {
 		});
 		
 		super.onCreateContextMenu(menu, v, menuInfo);
+	}
+
+	@Override
+	public void onError(Exception ex) {
+		new ErrorDialog(this).withText("Search eror").show();
 	}
 }
