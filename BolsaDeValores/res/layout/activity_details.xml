@@ -2,74 +2,113 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
-        android:id="@+id/details_name"
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center" />
+        android:layout_height="match_parent"
+        android:shrinkColumns="*"
+        android:stretchColumns="*" >
 
-    <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/details_name">
-        
-        <LinearLayout 
-            android:layout_width="fill_parent"
+        <TableRow
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            
-            <TextView 
-                android:text="Última atualização:"
+            android:gravity="center_horizontal" >
+
+            <TextView
+                android:id="@+id/details_name"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_span="2"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Última atualização:" />
+
             <TextView
                 android:id="@+id/details_updated_at"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            
-            <TextView 
-                android:text="Dia:"
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Dia:" />
+
             <TextView
                 android:id="@+id/details_day"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            
-            <TextView 
-                android:text="Último:"
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Último:" />
 
             <TextView
                 android:id="@+id/details_recent"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+        </TableRow>
 
-            <TextView 
-                android:text="Fechamento anterior:"
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-            
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Fechamento anterior:" />
+
             <TextView
                 android:id="@+id/details_previous_close"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-            
-            <TextView 
-                android:text="Abertura:"
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="Abertura:" />
 
             <TextView
                 android:id="@+id/details_open"
+                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
-    
-    <include layout="@layout/progress"/>
+        </TableRow>
+    </TableLayout>
+
+    <include layout="@layout/progress" />
 
 </RelativeLayout>
