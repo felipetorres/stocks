@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.GridView;
 
 import com.example.bolsadevalores.R;
@@ -22,6 +23,7 @@ public class CustomActionMode {
 	private Stock selected;
 	private GridView grid;
 	private ErrorHandler handler;
+	private View view;
 
 	public CustomActionMode(Activity activity, GridView grid, ErrorHandler handler) {
 		this.activity = activity;
@@ -31,6 +33,11 @@ public class CustomActionMode {
 	
 	public CustomActionMode withSelected(Stock selected) {
 		this.selected = selected;
+		return this;
+	}
+	
+	public CustomActionMode withSelectedView(View view) {
+		this.view = view;
 		return this;
 	}
 
@@ -45,12 +52,13 @@ public class CustomActionMode {
 
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
-				// TODO Auto-generated method stub
+				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.back_border));
 
 			}
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.back_border_selected));
 				mode.getMenuInflater().inflate(R.menu.stock_context, menu);
 
 				return true;
@@ -84,4 +92,5 @@ public class CustomActionMode {
 					.execute(stocks);
 		}
 	}
+
 }

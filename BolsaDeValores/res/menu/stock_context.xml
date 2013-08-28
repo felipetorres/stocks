@@ -3,5 +3,6 @@
 
     <item
         android:id="@+id/stock_context_remove"
-        android:title="Remover"/>
+        android:title="Remover"
+        android:icon="@android:drawable/ic_menu_delete"/>
 </menu>

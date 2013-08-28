@@ -29,14 +29,14 @@ public class StockActivity extends ActionBarActivity implements ErrorHandler {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_stock);
-
+		
+		grid = (GridView) findViewById(R.id.gridView);
+		
+		customActionMode = new CustomActionMode(this, grid, this);
 	}
 
 	protected void onResume() {
 		super.onResume();
-
-		grid = (GridView) findViewById(R.id.gridView);
-		customActionMode = new CustomActionMode(this, grid, this);
 		
 		customActionMode.loadStocks();
 		
@@ -62,8 +62,7 @@ public class StockActivity extends ActionBarActivity implements ErrorHandler {
 					int position, long id) {
 				
 				selected = (Stock) adapter.getItemAtPosition(position);
-				
-				Callback mode = customActionMode.withSelected(selected).build();
+				Callback mode = customActionMode.withSelected(selected).withSelectedView(view).build();
 				StockActivity.this.startSupportActionMode(mode);
 
 				return true;
