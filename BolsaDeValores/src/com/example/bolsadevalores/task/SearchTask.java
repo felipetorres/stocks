@@ -10,7 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -22,28 +22,16 @@ import com.google.gson.Gson;
 
 public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObject> {
 
-	private Context context;
+	private Activity activity;
 	private ListView listView;
 	private ErrorHandler errorHandler;
 
-	public SearchTask(Context context, ListView listView, ErrorHandler errorHandler) {
-		this.context = context;
+	public SearchTask(Activity activity, ListView listView, ErrorHandler errorHandler) {
+		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
 	}
-
-	private URI buildURIWith(String stock) {
-		String uri = "http://autoc.finance.yahoo.com/autoc?query=" + stock
-				+ "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
-
-		try {
-			return new URI(uri);
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
+	
 	@Override
 	protected JSONSymbolSuggestObject doInBackground(String... stocks) {
 		String stock = stocks[0];
@@ -73,10 +61,22 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
 			ArrayAdapter<Suggestion> adapter = new ArrayAdapter<Suggestion>(
-					context, android.R.layout.simple_list_item_1, suggestions);
+					activity, android.R.layout.simple_list_item_1, suggestions);
 			listView.setAdapter(adapter);
 		} catch (Exception e) {
 			errorHandler.onError(e);
 		}
+	}
+	
+	private URI buildURIWith(String stock) {
+		String uri = "http://autoc.finance.yahoo.com/autoc?query=" + stock
+				+ "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
+
+		try {
+			return new URI(uri);
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

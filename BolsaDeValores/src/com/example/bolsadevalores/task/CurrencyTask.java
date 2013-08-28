@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.bolsadevalores.adapter.CurrencyListAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
+import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONCurrencyDeserializer;
 import com.example.bolsadevalores.json.JSONCurrencyResponseObject;
 import com.example.bolsadevalores.web.HttpConnector;
@@ -25,11 +26,18 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 	private Activity activity;
 	private ListView listView;
 	private ErrorHandler errorHandler;
+	private ProgressManager progressManager;
 
 	public CurrencyTask(Activity activity, ListView listView, ErrorHandler errorHandler) {
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
+		this.progressManager = new ProgressManager(activity);
+	}
+	
+	@Override
+	protected void onPreExecute() {
+		progressManager.show();
 	}
 	
 	
@@ -71,6 +79,8 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 	
 	@Override
 	protected void onPostExecute(Map<String, Double> result) {
+		
+		progressManager.hide();
 		
 		try {
 			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, result);
