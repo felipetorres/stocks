@@ -12,9 +12,9 @@ import org.apache.http.util.EntityUtils;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.bolsadevalores.adapter.SearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
@@ -60,9 +60,9 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
-			ArrayAdapter<Suggestion> adapter = new ArrayAdapter<Suggestion>(
-					activity, android.R.layout.simple_list_item_1, suggestions);
+			SearchAdapter adapter = new SearchAdapter(activity, suggestions);
 			listView.setAdapter(adapter);
+			
 		} catch (Exception e) {
 			errorHandler.onError(e);
 		}

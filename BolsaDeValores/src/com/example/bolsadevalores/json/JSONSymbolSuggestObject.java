@@ -32,6 +32,8 @@ public class JSONSymbolSuggestObject {
 		String exchDisp;
 		String typeDisp;
 		
+		transient boolean checked;
+		
 		@Override
 		public String toString() {
 			return symbol;
@@ -39,6 +41,14 @@ public class JSONSymbolSuggestObject {
 		
 		public String getSymbol() {
 			return symbol;
+		}
+		
+		public boolean isChecked() {
+			return checked;
+		}
+		
+		public void check(boolean checked) {
+			this.checked = checked;
 		}
 	}
 }

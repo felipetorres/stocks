@@ -39,7 +39,7 @@ public class GridAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		
-		View layout = activity.getLayoutInflater().inflate(R.layout.item, null);
+		View layout = activity.getLayoutInflater().inflate(R.layout.item_stock, null);
 		
 		TextView symbol = (TextView) layout.findViewById(R.id.item_symbol);
 		TextView percentChange = (TextView) layout.findViewById(R.id.item_percentChange);

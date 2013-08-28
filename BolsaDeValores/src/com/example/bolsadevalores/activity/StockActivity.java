@@ -16,14 +16,14 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
-import com.example.bolsadevalores.menu.CustomActionMode;
+import com.example.bolsadevalores.menu.StockContextActionBar;
 import com.example.bolsadevalores.model.Stock;
 
 public class StockActivity extends ActionBarActivity implements ErrorHandler {
 
 	private Stock selected;
 	private GridView grid;
-	private CustomActionMode customActionMode;
+	private StockContextActionBar customActionMode;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class StockActivity extends ActionBarActivity implements ErrorHandler {
 		
 		grid = (GridView) findViewById(R.id.gridView);
 		
-		customActionMode = new CustomActionMode(this, grid, this);
+		customActionMode = new StockContextActionBar(this, grid, this);
 	}
 
 	protected void onResume() {

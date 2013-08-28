@@ -28,16 +28,23 @@ import com.example.bolsadevalores.task.SearchTask;
 public class SearchStockActivity extends ActionBarActivity implements ErrorHandler{
 
 	private Suggestion selected;
+	private ListView resultList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_search_stock);
-		ListView resultList = (ListView) findViewById(R.id.search_result);
+		resultList = (ListView) findViewById(R.id.search_result);
 		
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
+	}
+	
+	@Override
+	protected void onResume() {
+	    super.onResume();
+	    
 		String stock = getIntent().getStringExtra("stock");
 		new SearchTask(this, resultList, this).execute(stock);
 		

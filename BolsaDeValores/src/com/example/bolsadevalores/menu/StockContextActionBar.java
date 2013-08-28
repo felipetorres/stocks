@@ -17,7 +17,7 @@ import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.task.StockTask;
 
-public class CustomActionMode {
+public class StockContextActionBar {
 	
 	private Activity activity;
 	private Stock selected;
@@ -25,18 +25,18 @@ public class CustomActionMode {
 	private ErrorHandler handler;
 	private View view;
 
-	public CustomActionMode(Activity activity, GridView grid, ErrorHandler handler) {
+	public StockContextActionBar(Activity activity, GridView grid, ErrorHandler handler) {
 		this.activity = activity;
 		this.grid = grid;
 		this.handler = handler;
 	}
 	
-	public CustomActionMode withSelected(Stock selected) {
+	public StockContextActionBar withSelected(Stock selected) {
 		this.selected = selected;
 		return this;
 	}
 	
-	public CustomActionMode withSelectedView(View view) {
+	public StockContextActionBar withSelectedView(View view) {
 		this.view = view;
 		return this;
 	}
