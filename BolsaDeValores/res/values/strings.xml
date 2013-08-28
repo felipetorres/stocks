@@ -15,5 +15,7 @@
     <string name="menu_search">Search</string>
     <string name="menu_feeds">Feeds</string>
     <string name="menu_currency">Currency</string>
+    
+    <string name="context_stock_delete">Delete</string>
 
 </resources>
