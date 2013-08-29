@@ -79,20 +79,20 @@ public class SearchAdapter extends BaseAdapter{
 	private void updateStarWith(CheckBox check) {
 		if(check.isChecked()) {
         	selected++;
-        	check.setButtonDrawable(android.R.drawable.star_on);
+        	check.setButtonDrawable(R.drawable.ic_on);
         }
         else {
         	selected--;
-        	check.setButtonDrawable(android.R.drawable.star_off);
+        	check.setButtonDrawable(R.drawable.ic_off);
         }
 	}
 	
 	private void setChecked(CheckBox check, Suggestion suggestion) {
 		if(suggestion.isChecked()) {
-        	check.setButtonDrawable(android.R.drawable.star_on);
+        	check.setButtonDrawable(R.drawable.ic_on);
         }
         else {
-        	check.setButtonDrawable(android.R.drawable.star_off);
+        	check.setButtonDrawable(R.drawable.ic_off);
         }
 	}
 
