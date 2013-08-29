@@ -2,7 +2,8 @@ package com.example.bolsadevalores.adapter;
 
 import java.util.List;
 
-import android.app.Activity;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.view.ActionMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -12,15 +13,21 @@ import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.menu.SearchContextActionBar;
 
 public class SearchAdapter extends BaseAdapter{
 	
-	private Activity activity;
+	private ActionBarActivity activity;
 	private List<Suggestion> suggestions;
+	private SearchContextActionBar contextActionBar;
+    private ActionMode mode;
+    private int selected;
 
-	public SearchAdapter(Activity activity, List<Suggestion> suggestions) {
+	public SearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions, 
+			SearchContextActionBar contextActionBar) {
 		this.activity = activity;
 		this.suggestions = suggestions;
+		this.contextActionBar = contextActionBar;
 	}
 
 	@Override
@@ -55,17 +62,45 @@ public class SearchAdapter extends BaseAdapter{
 
         checkbox.setOnClickListener(new OnClickListener(){
 
-            @Override
+			@Override
             public void onClick(View v) {
                 CheckBox check = (CheckBox) v;
                 Suggestion item = (Suggestion) check.getTag();
                 item.check(check.isChecked());
-                if(check.isChecked()) check.setButtonDrawable(android.R.drawable.star_on);
-                else check.setButtonDrawable(android.R.drawable.star_off);
+                
+                updateStarWith(check);
+                updateContextActionBarText();
+                destroyIfNothingSelected();
             }
         });
 		
 		return layout;
+	}
+
+	private void updateStarWith(CheckBox check) {
+		if(check.isChecked()) {
+        	selected++;
+        	check.setButtonDrawable(android.R.drawable.star_on);
+        }
+        else {
+        	selected--;
+        	check.setButtonDrawable(android.R.drawable.star_off);
+        }
+	}
+
+	private void updateContextActionBarText() {
+		if(mode == null) {
+        	mode = activity.startSupportActionMode(contextActionBar.build());
+        } else {
+        	mode.setTitle(selected + " Selected");
+        }
+	}
+
+	private void destroyIfNothingSelected() {
+		if(selected == 0) {
+    		mode.finish();
+    		mode = null;
+    	}
 	}
 
 }

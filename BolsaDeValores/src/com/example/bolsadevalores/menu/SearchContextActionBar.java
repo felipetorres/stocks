@@ -5,7 +5,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class SearchContextActionBar {
-
+	
+	public SearchContextActionBar() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public ActionMode.Callback build() {
 		
 		return new ActionMode.Callback() {
@@ -19,12 +23,13 @@ public class SearchContextActionBar {
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
 				// TODO Auto-generated method stub
-				
+				//Done button
 			}
 			
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				return false;
+				mode.setTitle("1 Selected");
+				return true;
 			}
 			
 			@Override

@@ -10,26 +10,30 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
-import android.app.Activity;
 import android.os.AsyncTask;
+import android.support.v7.app.ActionBarActivity;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.adapter.SearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.menu.SearchContextActionBar;
 import com.google.gson.Gson;
 
 public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObject> {
 
-	private Activity activity;
+	private ActionBarActivity activity;
 	private ListView listView;
 	private ErrorHandler errorHandler;
+	private SearchContextActionBar contextActionBar;
 
-	public SearchTask(Activity activity, ListView listView, ErrorHandler errorHandler) {
+	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler, 
+			SearchContextActionBar contextActionBar) {
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
+		this.contextActionBar = contextActionBar;
 	}
 	
 	@Override
@@ -60,7 +64,7 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
-			SearchAdapter adapter = new SearchAdapter(activity, suggestions);
+			SearchAdapter adapter = new SearchAdapter(activity, suggestions, contextActionBar);
 			listView.setAdapter(adapter);
 			
 		} catch (Exception e) {

@@ -14,7 +14,6 @@ import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.R;
@@ -23,12 +22,14 @@ import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.menu.SearchContextActionBar;
 import com.example.bolsadevalores.task.SearchTask;
 
 public class SearchStockActivity extends ActionBarActivity implements ErrorHandler{
 
 	private Suggestion selected;
 	private ListView resultList;
+	private SearchContextActionBar contextActionBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 
+	    contextActionBar = new SearchContextActionBar();
 	}
 	
 	@Override
@@ -46,7 +48,7 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 	    super.onResume();
 	    
 		String stock = getIntent().getStringExtra("stock");
-		new SearchTask(this, resultList, this).execute(stock);
+		new SearchTask(this, resultList, this, contextActionBar).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -60,19 +62,6 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 				startActivity(details);
 			}
 		});
-		
-		resultList.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			@Override
-			public boolean onItemLongClick(AdapterView<?> adapter, View view,
-					int position, long id) {
-				
-				selected = (Suggestion) adapter.getItemAtPosition(position);
-				return false;
-			}
-		});
-		
-		registerForContextMenu(resultList);
 	}
 	
 	@Override
