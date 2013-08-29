@@ -47,10 +47,9 @@ public class GridAdapter extends BaseAdapter{
 		TextView lastTradeDate = (TextView) layout.findViewById(R.id.item_lastTradeDate);
 		
 		Stock stock = stocks.get(position);
-		String change = stock.getRealtimePercentage();
 		
 		symbol.setText(stock.Symbol);
-		percentChange.setText(change);
+		percentChange.setText(stock.getRealtimePercentage());
 		price.setText(stock.AskRealtime);
 		lastTradeDate.setText(stock.getPrettyLastTradeDateAndTime());
 
@@ -62,7 +61,7 @@ public class GridAdapter extends BaseAdapter{
 //			value = matcher.group(1);
 //		}
 		
-		setBackgroundColorTo(percentChange, change);
+		setBackgroundColorTo(percentChange, stock.getRealtimePercentage());
 		
 		return layout;
 	}

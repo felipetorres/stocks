@@ -110,15 +110,23 @@ public class Stock {
     }
     
     public String getRealtimePercentage() {
+
+    	double change = 0;
     	
-    	double change = (Double.valueOf(AskRealtime) - Double.valueOf(PreviousClose))/Double.valueOf(PreviousClose)*100;
-		BigDecimal percentage = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP);
-		
-		if (percentage.signum() == 1) {
-			return "+" + percentage.toString() + "%";
-		} else {
-			return percentage.toString() + "%";
-		}
+    	try {
+	    	Double previousClose = Double.valueOf(PreviousClose);
+	    	change = (Double.valueOf(Ask) - previousClose)/previousClose*100;
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	} finally {
+	    	BigDecimal percentage = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP);
+			
+			if (percentage.signum() == 1) {
+				return "+" + percentage.toString() + "%";
+			} else {
+				return percentage.toString() + "%";
+			}
+    	}
     }
     
 }
