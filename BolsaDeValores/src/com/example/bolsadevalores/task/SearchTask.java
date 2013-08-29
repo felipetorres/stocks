@@ -16,6 +16,7 @@ import android.widget.ListView;
 
 import com.example.bolsadevalores.adapter.SearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
+import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.google.gson.Gson;
@@ -25,11 +26,18 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 	private ActionBarActivity activity;
 	private ListView listView;
 	private ErrorHandler errorHandler;
+	private ProgressManager progressManager;
 
 	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler) { 
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
+		this.progressManager = new ProgressManager(activity);
+	}
+	
+	@Override
+	protected void onPreExecute() {
+		progressManager.show();
 	}
 	
 	@Override
@@ -56,6 +64,8 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 	
 	@Override
 	protected void onPostExecute(JSONSymbolSuggestObject jsonObject) {
+		
+		progressManager.hide();
 		
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
