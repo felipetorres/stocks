@@ -1,5 +1,7 @@
 package com.example.bolsadevalores.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.TimeZone;
 
 import org.joda.time.DateTime;
@@ -105,6 +107,18 @@ public class Stock {
     	DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm");
     	
     	return tradeDateAndTime.toString(formatter);
+    }
+    
+    public String getRealtimePercentage() {
+    	
+    	double change = (Double.valueOf(AskRealtime) - Double.valueOf(PreviousClose))/Double.valueOf(PreviousClose)*100;
+		BigDecimal percentage = new BigDecimal(change).setScale(2, RoundingMode.HALF_UP);
+		
+		if (percentage.signum() == 1) {
+			return "+" + percentage.toString() + "%";
+		} else {
+			return percentage.toString() + "%";
+		}
     }
     
 }

@@ -65,7 +65,7 @@ public class DetailsTask extends
 		
 			name.setText(stock.Name);
 			updatedAt.setText(stock.getPrettyLastTradeDateAndTime());
-			dayValue.setText(stock.PercentChange);
+			dayValue.setText(stock.getRealtimePercentage());
 			lastValue.setText(stock.Ask);
 			previousCloseValue.setText(stock.PreviousClose);
 			openValue.setText(stock.Open);

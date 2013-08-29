@@ -46,12 +46,13 @@ public class GridAdapter extends BaseAdapter{
 		TextView price = (TextView) layout.findViewById(R.id.item_price);
 		TextView lastTradeDate = (TextView) layout.findViewById(R.id.item_lastTradeDate);
 		
-		String change = stocks.get(position).PercentChange;
+		Stock stock = stocks.get(position);
+		String change = stock.getRealtimePercentage();
 		
-		symbol.setText(stocks.get(position).Symbol);
+		symbol.setText(stock.Symbol);
 		percentChange.setText(change);
-		price.setText(stocks.get(position).AskRealtime);
-		lastTradeDate.setText(stocks.get(position).getPrettyLastTradeDateAndTime());
+		price.setText(stock.AskRealtime);
+		lastTradeDate.setText(stock.getPrettyLastTradeDateAndTime());
 
 //		Pattern pattern = Pattern.compile("[+-](.*?)%");
 //		Matcher matcher = pattern.matcher(change);
