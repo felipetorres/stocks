@@ -32,8 +32,9 @@ public class SearchContextActionBar {
 			
 			@Override
 			public void onDestroyActionMode(ActionMode mode) {
-				if(!activity.isFinishing()) {
+				if(containsSelected()) {
 					bookmarkAllSelected();
+					activity.finish();
 				}
 			}
 			
@@ -60,6 +61,14 @@ public class SearchContextActionBar {
 				shPref.tryToBookmark(suggestion, stocks);
 			}
 		}
-		
+	}
+	
+	private boolean containsSelected() {
+		for (Suggestion suggestion : suggestions) {
+			if(suggestion.isChecked()) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

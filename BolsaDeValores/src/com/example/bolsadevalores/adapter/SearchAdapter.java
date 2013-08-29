@@ -88,12 +88,14 @@ public class SearchAdapter extends BaseAdapter{
 	}
 	
 	private void setChecked(CheckBox check, Suggestion suggestion) {
-		if(suggestion.isChecked()) {
+		boolean checked = suggestion.isChecked();
+		if(checked) {
         	check.setButtonDrawable(R.drawable.ic_on);
         }
         else {
         	check.setButtonDrawable(R.drawable.ic_off);
         }
+		check.setChecked(checked);
 	}
 
 	private void updateContextActionBarText() {
