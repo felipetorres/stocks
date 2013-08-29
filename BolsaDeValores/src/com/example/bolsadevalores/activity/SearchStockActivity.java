@@ -1,16 +1,11 @@
 package com.example.bolsadevalores.activity;
 
-import java.util.List;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,16 +15,12 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
-import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
-import com.example.bolsadevalores.menu.SearchContextActionBar;
 import com.example.bolsadevalores.task.SearchTask;
 
 public class SearchStockActivity extends ActionBarActivity implements ErrorHandler{
 
-	private Suggestion selected;
 	private ListView resultList;
-	private SearchContextActionBar contextActionBar;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +30,6 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 		
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
-
-	    contextActionBar = new SearchContextActionBar();
 	}
 	
 	@Override
@@ -48,7 +37,7 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 	    super.onResume();
 	    
 		String stock = getIntent().getStringExtra("stock");
-		new SearchTask(this, resultList, this, contextActionBar).execute(stock);
+		new SearchTask(this, resultList, this).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -78,29 +67,6 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 		return new OptionsMenuDelegator(this).select(item);
 	}
 	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		
-		MenuItem bookmark = menu.add("Adicionar aos favoritos");
-		
-		bookmark.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-			
-			@Override
-			public boolean onMenuItemClick(MenuItem item) {
-				
-				SharedPreferencesAccessor shPref = new SharedPreferencesAccessor(SearchStockActivity.this);
-				
-				List<String> stocks = shPref.retrieveBookmarkedStocks();
-				shPref.tryToBookmark(selected, stocks);
-				
-				return false;
-			}
-		});
-		
-		super.onCreateContextMenu(menu, v, menuInfo);
-	}
-
 	@Override
 	public void onError(Exception ex) {
 		new ErrorDialog(this).withText("Search eror").show();

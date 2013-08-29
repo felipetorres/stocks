@@ -23,11 +23,10 @@ public class SearchAdapter extends BaseAdapter{
     private ActionMode mode;
     private int selected;
 
-	public SearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions, 
-			SearchContextActionBar contextActionBar) {
+	public SearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
 		this.activity = activity;
 		this.suggestions = suggestions;
-		this.contextActionBar = contextActionBar;
+		this.contextActionBar = new SearchContextActionBar(activity, suggestions);
 	}
 
 	@Override
@@ -57,8 +56,8 @@ public class SearchAdapter extends BaseAdapter{
         
 		name.setText(suggestion.getSymbol());
 
+		setChecked(checkbox, suggestion);
 		checkbox.setTag(suggestion);
-        checkbox.setChecked(suggestion.isChecked());
 
         checkbox.setOnClickListener(new OnClickListener(){
 
@@ -87,13 +86,19 @@ public class SearchAdapter extends BaseAdapter{
         	check.setButtonDrawable(android.R.drawable.star_off);
         }
 	}
+	
+	private void setChecked(CheckBox check, Suggestion suggestion) {
+		if(suggestion.isChecked()) {
+        	check.setButtonDrawable(android.R.drawable.star_on);
+        }
+        else {
+        	check.setButtonDrawable(android.R.drawable.star_off);
+        }
+	}
 
 	private void updateContextActionBarText() {
-		if(mode == null) {
-        	mode = activity.startSupportActionMode(contextActionBar.build());
-        } else {
-        	mode.setTitle(selected + " Selected");
-        }
+		if(mode == null) mode = activity.startSupportActionMode(contextActionBar.build());
+		else mode.setTitle(selected + " Selected");
 	}
 
 	private void destroyIfNothingSelected() {

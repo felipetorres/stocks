@@ -1,13 +1,23 @@
 package com.example.bolsadevalores.menu;
 
+import java.util.List;
+
+import android.app.Activity;
 import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
+import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+
 public class SearchContextActionBar {
 	
-	public SearchContextActionBar() {
-		// TODO Auto-generated constructor stub
+	private Activity activity;
+	private List<Suggestion> suggestions;
+
+	public SearchContextActionBar(Activity activity, List<Suggestion> suggestions) {
+		this.activity = activity;
+		this.suggestions = suggestions;
 	}
 	
 	public ActionMode.Callback build() {
@@ -21,9 +31,10 @@ public class SearchContextActionBar {
 			}
 			
 			@Override
-			public void onDestroyActionMode(ActionMode arg0) {
-				// TODO Auto-generated method stub
-				//Done button
+			public void onDestroyActionMode(ActionMode mode) {
+				if(!activity.isFinishing()) {
+					bookmarkAllSelected();
+				}
 			}
 			
 			@Override
@@ -38,5 +49,17 @@ public class SearchContextActionBar {
 				return false;
 			}
 		};
+	}
+	
+	private void bookmarkAllSelected() {
+		SharedPreferencesAccessor shPref = new SharedPreferencesAccessor(activity);
+
+		for (Suggestion suggestion : suggestions) {
+			if(suggestion.isChecked()) {
+				List<String> stocks = shPref.retrieveBookmarkedStocks();
+				shPref.tryToBookmark(suggestion, stocks);
+			}
+		}
+		
 	}
 }

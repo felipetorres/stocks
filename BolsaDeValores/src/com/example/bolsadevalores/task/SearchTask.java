@@ -18,7 +18,6 @@ import com.example.bolsadevalores.adapter.SearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
-import com.example.bolsadevalores.menu.SearchContextActionBar;
 import com.google.gson.Gson;
 
 public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObject> {
@@ -26,14 +25,11 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 	private ActionBarActivity activity;
 	private ListView listView;
 	private ErrorHandler errorHandler;
-	private SearchContextActionBar contextActionBar;
 
-	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler, 
-			SearchContextActionBar contextActionBar) {
+	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler) { 
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
-		this.contextActionBar = contextActionBar;
 	}
 	
 	@Override
@@ -64,7 +60,7 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
-			SearchAdapter adapter = new SearchAdapter(activity, suggestions, contextActionBar);
+			SearchAdapter adapter = new SearchAdapter(activity, suggestions);
 			listView.setAdapter(adapter);
 			
 		} catch (Exception e) {
