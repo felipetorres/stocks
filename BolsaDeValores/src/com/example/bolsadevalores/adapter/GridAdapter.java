@@ -50,7 +50,9 @@ public class GridAdapter extends BaseAdapter{
 		
 		symbol.setText(stock.Symbol);
 		percentChange.setText(stock.getRealtimePercentage());
-		price.setText(stock.AskRealtime);
+		String askRealtime = stock.AskRealtime;
+		if(askRealtime == null)	price.setText(stock.Ask);
+		else price.setText(askRealtime);
 		lastTradeDate.setText(stock.getPrettyLastTradeDateAndTime());
 
 //		Pattern pattern = Pattern.compile("[+-](.*?)%");

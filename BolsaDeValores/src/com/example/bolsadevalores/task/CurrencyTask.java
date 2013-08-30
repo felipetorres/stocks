@@ -1,10 +1,6 @@
 package com.example.bolsadevalores.task;
 
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-
-import org.joda.time.DateTime;
+import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -13,15 +9,15 @@ import android.widget.ListView;
 import com.example.bolsadevalores.adapter.CurrencyListAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
-import com.example.bolsadevalores.json.JSONCurrencyDeserializer;
-import com.example.bolsadevalores.json.JSONCurrencyResponseObject;
+import com.example.bolsadevalores.json.JSONListResponseObject;
+import com.example.bolsadevalores.json.JSONResponseObject;
+import com.example.bolsadevalores.json.JSONSingleResponseObject;
+import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.web.HttpConnector;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 
-public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
+public class CurrencyTask extends AsyncTask<String, Object, JSONResponseObject>{
 	
 	private Activity activity;
 	private ListView listView;
@@ -40,69 +36,45 @@ public class CurrencyTask extends AsyncTask<Object, Object, Map<String,Double>>{
 		progressManager.show();
 	}
 	
-	
 	@Override
-	protected Map<String, Double> doInBackground(Object... params) {
+	protected JSONResponseObject doInBackground(String... params) {
 		
-		DateTime dateTime = new DateTime().minusDays(1);
-		String dateYesterday = dateTime.toString("yyyy-MM-dd");
+		String CURRENCY = "";
+		Class<? extends JSONResponseObject> clazz;
 		
-		String url = "http://openexchangerates.org/api/latest.json?app_id=466305c65e584919bf441cb7dffcb32f";
+		for (String param : params) {
+			CURRENCY += param + "%3Dx%22%2C%20%22";
+		}
 		
-		String yesterdayExch = "http://openexchangerates.org/api/historical/" 
-									+ dateYesterday 
-									+ ".json?app_id=466305c65e584919bf441cb7dffcb32f";
+		String url = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(%22"
+				+ CURRENCY
+				+ "%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
+		
+		if(params.length <= 1) clazz = JSONSingleResponseObject.class;
+		else clazz = JSONListResponseObject.class;
 		
 		HttpConnector httpConnector = new HttpConnector();
 		
 		try {
 			String response = httpConnector.getTo(url);
-			String responseYesterday = httpConnector.getTo(yesterdayExch);
-			
-			GsonBuilder builder = new GsonBuilder();
-			builder.registerTypeAdapter(
-					new TypeToken<Map<String, String>>() {}.getType(),
-					new JSONCurrencyDeserializer());
-			Gson gson = builder.create();
-			
-			JSONCurrencyResponseObject today = gson.fromJson(response, JSONCurrencyResponseObject.class);
-			JSONCurrencyResponseObject yesterday = gson.fromJson(responseYesterday, JSONCurrencyResponseObject.class);
-			
-			calculateChangeBetween(today,yesterday);
+			return new Gson().fromJson(response, clazz);
 		
-			return today.getRates();
-			
 		} catch (Exception e) {
 			return null;
 		}
 	}
 	
 	@Override
-	protected void onPostExecute(Map<String, Double> result) {
-		
+	protected void onPostExecute(JSONResponseObject result) {
 		progressManager.hide();
 		
 		try {
-			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, result);
+			List<Stock> currencies = result.getStocks();
+			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
 			listView.setAdapter(adapter);
 		}catch (Exception e) {
 			errorHandler.onError(e);
 		}
 		
-	}
-
-	private void calculateChangeBetween(JSONCurrencyResponseObject today,
-			JSONCurrencyResponseObject yesterday) {
-
-		Set<Entry<String,Double>> rates = today.getRates().entrySet();
-		
-		for (Entry<String, Double> entry : rates) {
-			Double todayValue = entry.getValue();
-			Double yesterdayValue = yesterday.getRates().get(entry.getKey());
-			
-			double change = todayValue.doubleValue() / yesterdayValue.doubleValue();
-			today.getRates().put(entry.getKey(), (change - 1)*100);
-			
-		}
 	}
 }

@@ -25,7 +25,7 @@ public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
 		
 		ListView listView = (ListView) findViewById(R.id.currency_list);
 		
-		new CurrencyTask(this, listView, this).execute();
+		new CurrencyTask(this, listView, this).execute("BRL","EUR");
 	}
 	
 	@Override
@@ -46,6 +46,7 @@ public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
 
 	@Override
 	public void onError(Exception ex) {
+		ex.printStackTrace();
 		new ErrorDialog(this).withText("Currency error").show();
 	}
 	
