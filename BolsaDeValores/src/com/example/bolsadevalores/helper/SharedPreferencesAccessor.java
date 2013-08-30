@@ -24,7 +24,7 @@ public class SharedPreferencesAccessor {
 		
 		if(!stocks.contains(selectedSymbol)) {
 			String stockString = listToString(stocks);
-			stockString += selectedSymbol;
+			stockString += stocks.size() == 0 ? selectedSymbol : "," + selectedSymbol;
 			
 			writeToSharedPreferences(stockString);
 					
@@ -45,8 +45,11 @@ public class SharedPreferencesAccessor {
 	public List<String> retrieveBookmarkedStocks() {
 		SharedPreferences settings = context.getSharedPreferences("bookmark", 0);
 		String stockString = settings.getString("stocks", "");
-		String[] stocks = stockString.split(",");
-		return Arrays.asList(stocks);
+		if(stockString != "") {
+			String[] stocks = stockString.split(",");
+			return Arrays.asList(stocks);
+		}
+		return new ArrayList<String>();
 	}
 
 	private void writeToSharedPreferences(String stockString) {
@@ -60,9 +63,12 @@ public class SharedPreferencesAccessor {
 	private String listToString(List<String> stocks) {
 		String stockString = "";
 		
-		for (String string : stocks) {
-			stockString += string + ",";
+		if(stocks.size() >= 1) stockString += stocks.get(0);
+		
+		for(int i=1;i<stocks.size();i++) {
+			stockString += "," + stocks.get(i);
 		}
+		
 		return stockString;
 	}
 	

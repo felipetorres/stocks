@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,8 +13,6 @@ import android.widget.GridView;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
-import com.example.bolsadevalores.json.JSONListResponseObject;
-import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.task.StockTask;
 
@@ -82,14 +81,12 @@ public class StockContextActionBar {
 		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity);
 
 		List<String> bookmarkedStocks = accessor.retrieveBookmarkedStocks();
-		String[] stocks = (String[]) bookmarkedStocks.toArray();
 
-		if (bookmarkedStocks.size() == 2) {
-			new StockTask(activity, grid, JSONSingleResponseObject.class, handler)
-					.execute(stocks);
-		} else if (bookmarkedStocks.size() > 2) {
-			new StockTask(activity, grid, JSONListResponseObject.class, handler)
-					.execute(stocks);
+		Log.i("BLA", bookmarkedStocks.size()+"");
+		
+		if(bookmarkedStocks.size() >= 1) {
+			String[] stocks = (String[]) bookmarkedStocks.toArray();
+			new StockTask(activity, grid, handler).execute(stocks);
 		}
 	}
 
