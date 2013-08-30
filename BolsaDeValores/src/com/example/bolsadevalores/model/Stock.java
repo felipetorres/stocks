@@ -96,15 +96,17 @@ public class Stock {
     
     public DateTime getLastTradeDateAndTime() {
     	DateTimeFormatter formatter = DateTimeFormat.forPattern("MM/dd/yyyy hh:mmaa");
-    	formatter.withZone(DateTimeZone.forTimeZone(TimeZone.getTimeZone("GMT-04:00")));
+    	formatter = formatter.withZone(DateTimeZone.forID("America/New_York"));
     	DateTime parsedDateTime = formatter.parseDateTime(this.LastTradeDate + " " + this.LastTradeTime);
     	
-    	return parsedDateTime.toDateTime(DateTimeZone.forTimeZone(TimeZone.getTimeZone("GMT-03:00")));
+    	DateTime withZone = parsedDateTime.toDateTime().withZone(DateTimeZone.forID("America/Sao_Paulo"));
+    	
+		return withZone;
     }
     
     public String getPrettyLastTradeDateAndTime() {
     	DateTime tradeDateAndTime = this.getLastTradeDateAndTime();
-    	DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy hh:mm");
+    	DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm");
     	
     	return tradeDateAndTime.toString(formatter);
     }
