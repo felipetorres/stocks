@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.activity.CurrencyActivity;
 import com.example.bolsadevalores.activity.MyFeedActivity;
-import com.example.bolsadevalores.activity.SearchStockActivity;
+import com.example.bolsadevalores.activity.StockSearchActivity;
 
 public class OptionsMenuDelegator {
 
@@ -21,7 +21,7 @@ public class OptionsMenuDelegator {
 		this.activity = activity;
 	}
 
-	public void withSearchView(Menu menu) {
+	public void withSearchView(Menu menu, final Class<? extends Activity> clazz) {
 
 		MenuItem searchItem = menu.findItem(R.id.menu_search);
 		SearchView searchView = (SearchView) MenuItemCompat
@@ -31,8 +31,8 @@ public class OptionsMenuDelegator {
 
 			@Override
 			public boolean onQueryTextSubmit(String query) {
-				Intent intent = new Intent(activity, SearchStockActivity.class);
-				intent.putExtra("stock", query);
+				Intent intent = new Intent(activity, clazz);
+				intent.putExtra("query", query);
 				activity.startActivity(intent);
 				return false;
 			}

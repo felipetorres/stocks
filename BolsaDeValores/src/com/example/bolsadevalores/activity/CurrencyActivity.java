@@ -32,7 +32,7 @@ public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.currency, menu);
 		
-		new OptionsMenuDelegator(this).withSearchView(menu);
+		new OptionsMenuDelegator(this).withSearchView(menu, CurrencySearchActivity.class);
 		
 		return super.onCreateOptionsMenu(menu);
 	}

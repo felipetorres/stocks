@@ -15,7 +15,7 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.menu.SearchContextActionBar;
 
-public class SearchAdapter extends BaseAdapter{
+public class StockSearchAdapter extends BaseAdapter{
 	
 	private ActionBarActivity activity;
 	private List<Suggestion> suggestions;
@@ -23,7 +23,7 @@ public class SearchAdapter extends BaseAdapter{
     private ActionMode mode;
     private int selected;
 
-	public SearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
+	public StockSearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
 		this.activity = activity;
 		this.suggestions = suggestions;
 		this.contextActionBar = new SearchContextActionBar(activity, suggestions);
@@ -109,5 +109,4 @@ public class SearchAdapter extends BaseAdapter{
     		mode = null;
     	}
 	}
-
 }

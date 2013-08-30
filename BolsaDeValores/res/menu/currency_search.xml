@@ -3,18 +3,13 @@
 
     <item
         android:id="@+id/menu_search"
-        android:title="@string/menu_search"
-        android:icon="@android:drawable/ic_search_category_default"
+        android:title="@string/menu_currency_search"
+        android:icon="@drawable/ic_currency_search"
         com.example.bolsadevalores:actionViewClass="android.support.v7.widget.SearchView"
         com.example.bolsadevalores:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/menu_feeds"
-        android:icon="@drawable/ic_rss"
         android:title="@string/menu_feeds"
-        com.example.bolsadevalores:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_currency"
-        android:icon="@drawable/ic_currency_search"
-        android:title="@string/menu_currency"
+        android:icon="@drawable/ic_rss"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
 </menu>

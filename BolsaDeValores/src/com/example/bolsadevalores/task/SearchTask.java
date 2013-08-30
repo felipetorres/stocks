@@ -1,5 +1,6 @@
 package com.example.bolsadevalores.task;
 
+import java.lang.reflect.Constructor;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -10,11 +11,14 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.example.bolsadevalores.adapter.SearchAdapter;
+import com.example.bolsadevalores.adapter.StockSearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
@@ -27,11 +31,13 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 	private ListView listView;
 	private ErrorHandler errorHandler;
 	private ProgressManager progressManager;
+	private Class<? extends BaseAdapter> searchAdapterClass;
 
-	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler) { 
+	public SearchTask(ActionBarActivity activity, ListView listView, ErrorHandler errorHandler, Class<? extends BaseAdapter> searchAdapterClass) { 
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
+		this.searchAdapterClass = searchAdapterClass;
 		this.progressManager = new ProgressManager(activity);
 	}
 	
@@ -70,12 +76,28 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
-			SearchAdapter adapter = new SearchAdapter(activity, suggestions);
+			Log.i("BLA", suggestions.get(0).getName());
+			
+			BaseAdapter adapter = newInstanceOf(searchAdapterClass, activity, suggestions); 
 			listView.setAdapter(adapter);
 			
 		} catch (Exception e) {
 			errorHandler.onError(e);
 		}
+	}
+	
+	private BaseAdapter newInstanceOf(Class<? extends BaseAdapter> clazz, Activity activity, List<Suggestion> suggestions) {
+		
+		Constructor<? extends BaseAdapter> constructor;
+		BaseAdapter newInstance = null;
+		
+		try {
+			constructor = clazz.getConstructor(ActionBarActivity.class, List.class);
+			newInstance = constructor.newInstance(activity, suggestions);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return newInstance;
 	}
 	
 	private URI buildURIWith(String stock) {

@@ -43,6 +43,10 @@ public class JSONSymbolSuggestObject {
 			return symbol;
 		}
 		
+		public String getName() {
+			return name;
+		}
+		
 		public boolean isChecked() {
 			return checked;
 		}
