@@ -82,8 +82,6 @@ public class StockContextActionBar {
 
 		List<String> bookmarkedStocks = accessor.retrieveBookmarkedStocks();
 
-		Log.i("BLA", bookmarkedStocks.size()+"");
-		
 		if(bookmarkedStocks.size() >= 1) {
 			String[] stocks = (String[]) bookmarkedStocks.toArray();
 			new StockTask(activity, grid, handler).execute(stocks);
