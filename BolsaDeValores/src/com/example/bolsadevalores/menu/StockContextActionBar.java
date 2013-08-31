@@ -13,6 +13,7 @@ import android.widget.GridView;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
+import com.example.bolsadevalores.model.Bookmark;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.task.StockTask;
 
@@ -66,7 +67,7 @@ public class StockContextActionBar {
 			@Override
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 				if(item.getItemId() == R.id.stock_context_remove) {
-					new SharedPreferencesAccessor(activity).removeFromBookmark(selected);
+					new SharedPreferencesAccessor(activity, Bookmark.STOCK).removeFromBookmark(selected);
 					loadStocks();
 					mode.finish();
 					return true;
@@ -78,9 +79,9 @@ public class StockContextActionBar {
 	}
 	
 	public void loadStocks() {
-		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity);
+		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity, Bookmark.STOCK);
 
-		List<String> bookmarkedStocks = accessor.retrieveBookmarkedStocks();
+		List<String> bookmarkedStocks = accessor.retrieveBookmarked();
 
 		if(bookmarkedStocks.size() >= 1) {
 			String[] stocks = (String[]) bookmarkedStocks.toArray();

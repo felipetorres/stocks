@@ -13,20 +13,21 @@ import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
-import com.example.bolsadevalores.menu.SearchContextActionBar;
+import com.example.bolsadevalores.menu.CurrencySearchContextActionBar;
+import com.example.bolsadevalores.menu.StockSearchContextActionBar;
 
 public class CurrencySearchAdapter extends BaseAdapter{
 	
 	private ActionBarActivity activity;
 	private List<Suggestion> suggestions;
-	private SearchContextActionBar contextActionBar;
+	private CurrencySearchContextActionBar contextActionBar;
     private ActionMode mode;
     private int selected;
 
 	public CurrencySearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
 		this.activity = activity;
 		this.suggestions = suggestions;
-		this.contextActionBar = new SearchContextActionBar(activity, suggestions);
+		this.contextActionBar = new CurrencySearchContextActionBar(activity, suggestions);
 	}
 
 	@Override

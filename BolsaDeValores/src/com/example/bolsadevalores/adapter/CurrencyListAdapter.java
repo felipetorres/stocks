@@ -3,6 +3,7 @@ package com.example.bolsadevalores.adapter;
 import java.util.List;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -28,7 +29,6 @@ public class CurrencyListAdapter extends BaseAdapter{
 
 	@Override
 	public Object getItem(int position) {
-		
 		return currencies.get(position);
 	}
 
@@ -46,8 +46,11 @@ public class CurrencyListAdapter extends BaseAdapter{
 		TextView value = (TextView) layout.findViewById(R.id.item_currency_value);
 		
 		Stock currency = currencies.get(position);
+		
 		name.setText(currency.Name);
 		value.setText(currency.Ask);
+		
+		Log.i("BLA", currency.Name + " " + currency.Ask);
 		
 		return layout;
 	}

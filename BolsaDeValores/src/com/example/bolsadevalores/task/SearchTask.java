@@ -76,8 +76,6 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 		try {
 			List<Suggestion> suggestions = jsonObject.getSuggestions();
 	
-			Log.i("BLA", suggestions.get(0).getName());
-			
 			BaseAdapter adapter = newInstanceOf(searchAdapterClass, activity, suggestions); 
 			listView.setAdapter(adapter);
 			

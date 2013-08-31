@@ -9,13 +9,14 @@ import android.view.MenuItem;
 
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.model.Bookmark;
 
-public class SearchContextActionBar {
+public class StockSearchContextActionBar {
 	
 	private Activity activity;
 	private List<Suggestion> suggestions;
 
-	public SearchContextActionBar(Activity activity, List<Suggestion> suggestions) {
+	public StockSearchContextActionBar(Activity activity, List<Suggestion> suggestions) {
 		this.activity = activity;
 		this.suggestions = suggestions;
 	}
@@ -53,11 +54,11 @@ public class SearchContextActionBar {
 	}
 	
 	private void bookmarkAllSelected() {
-		SharedPreferencesAccessor shPref = new SharedPreferencesAccessor(activity);
+		SharedPreferencesAccessor shPref = new SharedPreferencesAccessor(activity, Bookmark.STOCK);
 
 		for (Suggestion suggestion : suggestions) {
 			if(suggestion.isChecked()) {
-				List<String> stocks = shPref.retrieveBookmarkedStocks();
+				List<String> stocks = shPref.retrieveBookmarked();
 				shPref.tryToBookmark(suggestion, stocks);
 			}
 		}

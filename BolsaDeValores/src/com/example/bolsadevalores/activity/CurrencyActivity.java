@@ -1,8 +1,12 @@
 package com.example.bolsadevalores.activity;
 
+import java.util.Arrays;
+import java.util.List;
+
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -11,9 +15,14 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
+import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
+import com.example.bolsadevalores.model.Bookmark;
 import com.example.bolsadevalores.task.CurrencyTask;
+import com.example.bolsadevalores.task.StockTask;
 
 public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
+
+	private ListView currencyList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +32,22 @@ public class CurrencyActivity extends ActionBarActivity implements ErrorHandler{
 		ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 		
-		ListView listView = (ListView) findViewById(R.id.currency_list);
+		currencyList = (ListView) findViewById(R.id.currency_list);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
 		
-		new CurrencyTask(this, listView, this).execute("BRL","EUR");
+		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(this, Bookmark.CURRENCY);
+		List<String> bookmarkedCurrencies = accessor.retrieveBookmarked();
+		
+		if(bookmarkedCurrencies.size() >= 1) {
+			String[] currencies = (String[]) bookmarkedCurrencies.toArray();
+			
+			new CurrencyTask(this, currencyList, this).execute(currencies);
+		}
+		
 	}
 	
 	@Override
