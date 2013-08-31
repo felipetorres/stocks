@@ -50,8 +50,6 @@ public class CurrencyListAdapter extends BaseAdapter{
 		name.setText(currency.Name);
 		value.setText(currency.Ask);
 		
-		Log.i("BLA", currency.Name + " " + currency.Ask);
-		
 		return layout;
 	}
 
