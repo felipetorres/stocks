@@ -115,7 +115,8 @@ public class Stock {
     	
     	try {
 	    	Double previousClose = Double.valueOf(PreviousClose);
-	    	change = (Double.valueOf(Ask) - previousClose)/previousClose*100;
+	    	Double recentValue = Double.valueOf(getLastTradePrice());
+			change = (recentValue - previousClose)/previousClose*100;
     	} catch (Exception e) {
     		e.printStackTrace();
     	} finally {
@@ -128,5 +129,10 @@ public class Stock {
 			}
     	}
     }
+
+	public String getLastTradePrice() {
+		if(Ask != null) return Ask;
+		return LastTradePriceOnly;
+	}
     
 }
