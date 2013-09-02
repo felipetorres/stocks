@@ -13,20 +13,20 @@ import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
-import com.example.bolsadevalores.menu.SearchContextActionBar;
+import com.example.bolsadevalores.menu.StockSearchContextActionBar;
 
-public class SearchAdapter extends BaseAdapter{
+public class StockSearchAdapter extends BaseAdapter{
 	
 	private ActionBarActivity activity;
 	private List<Suggestion> suggestions;
-	private SearchContextActionBar contextActionBar;
+	private StockSearchContextActionBar contextActionBar;
     private ActionMode mode;
     private int selected;
 
-	public SearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
+	public StockSearchAdapter(ActionBarActivity activity, List<Suggestion> suggestions) {
 		this.activity = activity;
 		this.suggestions = suggestions;
-		this.contextActionBar = new SearchContextActionBar(activity, suggestions);
+		this.contextActionBar = new StockSearchContextActionBar(activity, suggestions);
 	}
 
 	@Override
@@ -109,5 +109,4 @@ public class SearchAdapter extends BaseAdapter{
     		mode = null;
     	}
 	}
-
 }

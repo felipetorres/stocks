@@ -47,7 +47,7 @@ public class CurrencyTask extends AsyncTask<String, Object, JSONResponseObject>{
 		else clazz = JSONListResponseObject.class;
 		
 		try {
-			String response = new YahooWebConnector(currencySymbols).connect();
+			String response = new YahooWebConnector(currencySymbols).connectToCurrencyUrl();
 			return new Gson().fromJson(response, clazz);
 		
 		} catch (Exception e) {

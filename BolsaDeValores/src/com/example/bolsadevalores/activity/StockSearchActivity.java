@@ -12,20 +12,21 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.adapter.StockSearchAdapter;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.task.SearchTask;
 
-public class SearchStockActivity extends ActionBarActivity implements ErrorHandler{
+public class StockSearchActivity extends ActionBarActivity implements ErrorHandler{
 
 	private ListView resultList;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_search_stock);
+		setContentView(R.layout.activity_search);
 		resultList = (ListView) findViewById(R.id.search_result);
 		
 		ActionBar actionBar = getSupportActionBar();
@@ -36,8 +37,8 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 	protected void onResume() {
 	    super.onResume();
 	    
-		String stock = getIntent().getStringExtra("stock");
-		new SearchTask(this, resultList, this).execute(stock);
+		String stock = getIntent().getStringExtra("query");
+		new SearchTask(this, resultList, this, StockSearchAdapter.class).execute(stock);
 		
 		resultList.setOnItemClickListener(new OnItemClickListener() {
 
@@ -46,7 +47,7 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 				
 				Suggestion suggestion = (Suggestion) adapter.getItemAtPosition(position);
 				
-				Intent details = new Intent(SearchStockActivity.this, DetailsActivity.class);
+				Intent details = new Intent(StockSearchActivity.this, DetailsActivity.class);
 				details.putExtra("searched_stock", suggestion);
 				startActivity(details);
 			}
@@ -55,9 +56,9 @@ public class SearchStockActivity extends ActionBarActivity implements ErrorHandl
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.search_stock, menu);
+		getMenuInflater().inflate(R.menu.stock_search, menu);
 		
-		new OptionsMenuDelegator(this).withSearchView(menu);
+		new OptionsMenuDelegator(this).withSearchView(menu, StockSearchActivity.class);
 		
 		return super.onCreateOptionsMenu(menu);
 	}

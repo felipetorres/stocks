@@ -50,7 +50,7 @@ public class StockTask extends
 		JSONResponseObject newInstance = null;
 		try {
 			newInstance = clazz.newInstance();
-			String resposta = new YahooWebConnector(stockSymbols).connect();
+			String resposta = new YahooWebConnector(stockSymbols).connectToStockUrl();
 			return new Gson().fromJson(resposta, clazz);
 		} catch (Exception e) {
 			return newInstance;

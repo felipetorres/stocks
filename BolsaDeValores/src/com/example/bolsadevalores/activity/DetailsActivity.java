@@ -38,7 +38,7 @@ public class DetailsActivity extends ActionBarActivity implements ErrorHandler{
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.details, menu);
 		
-		new OptionsMenuDelegator(this).withSearchView(menu);
+		new OptionsMenuDelegator(this).withSearchView(menu, StockSearchActivity.class);
 		
 		return super.onCreateOptionsMenu(menu);
 	}

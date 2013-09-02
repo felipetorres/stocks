@@ -8,14 +8,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.model.Bookmark;
 import com.example.bolsadevalores.model.Stock;
 
 public class SharedPreferencesAccessor {
 	
 	private Context context;
+	private Bookmark bookmark;
 
-	public SharedPreferencesAccessor(Context context) {
+	public SharedPreferencesAccessor(Context context, Bookmark bookmark) {
 		this.context = context;
+		this.bookmark = bookmark;
 	}
 
 	public void tryToBookmark(Suggestion selected, List<String> stocks) {
@@ -34,7 +37,7 @@ public class SharedPreferencesAccessor {
 	public void removeFromBookmark(Stock stock) {
 		List<String> stocks = new ArrayList<String>();
 		
-		stocks.addAll(this.retrieveBookmarkedStocks());
+		stocks.addAll(this.retrieveBookmarked());
 		
 		stocks.remove(stock.Symbol);
 		String string = listToString(stocks);
@@ -42,9 +45,9 @@ public class SharedPreferencesAccessor {
 		
 	}
 	
-	public List<String> retrieveBookmarkedStocks() {
+	public List<String> retrieveBookmarked() {
 		SharedPreferences settings = context.getSharedPreferences("bookmark", 0);
-		String stockString = settings.getString("stocks", "");
+		String stockString = settings.getString(bookmark.getType(), "");
 		if(stockString != "") {
 			String[] stocks = stockString.split(",");
 			return Arrays.asList(stocks);
@@ -56,7 +59,7 @@ public class SharedPreferencesAccessor {
 		SharedPreferences settings = context.getSharedPreferences("bookmark", 0);
 		SharedPreferences.Editor editor = settings.edit();
 		
-		editor.putString("stocks", stockString);
+		editor.putString(bookmark.getType(), stockString);
 		editor.commit();
 	}
 
