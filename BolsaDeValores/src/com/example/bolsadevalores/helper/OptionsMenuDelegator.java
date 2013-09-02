@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.activity.CurrencyActivity;
 import com.example.bolsadevalores.activity.MyFeedActivity;
-import com.example.bolsadevalores.activity.StockSearchActivity;
 
 public class OptionsMenuDelegator {
 
