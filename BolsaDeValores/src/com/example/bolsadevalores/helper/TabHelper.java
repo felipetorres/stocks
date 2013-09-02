@@ -2,6 +2,7 @@ package com.example.bolsadevalores.helper;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBar.Tab;
 
@@ -13,6 +14,12 @@ import com.example.bolsadevalores.tab.TabListener;
 import com.example.bolsadevalores.tab.ValorFeedFragment;
 
 public class TabHelper {
+	
+	private Activity activity;
+
+	public TabHelper(Activity activity) {
+		this.activity = activity;
+	}
 
 	public void addTabsTo(ActionBar actionBar) {
 
@@ -27,7 +34,7 @@ public class TabHelper {
 			for (Class<?> clazz : clazzes) {
 				Tab infoMoney = actionBar.newTab()
 						.setText(clazz.newInstance().toString())
-						.setTabListener(new TabListener(clazz));
+						.setTabListener(new TabListener(activity, clazz));
 				actionBar.addTab(infoMoney);
 			}
 		} catch (Exception e) {

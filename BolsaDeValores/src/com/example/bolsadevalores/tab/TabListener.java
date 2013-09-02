@@ -1,5 +1,6 @@
 package com.example.bolsadevalores.tab;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
@@ -9,10 +10,12 @@ import com.example.bolsadevalores.R;
 
 public class TabListener<T extends Fragment> implements ActionBar.TabListener{
 	
+	private Activity activity;
 	private Class<T> clazz;
 	private Fragment fragment;
 
-	public TabListener(Class<T> clazz) {
+	public TabListener(Activity activity, Class<T> clazz) {
+		this.activity = activity;
 		this.clazz = clazz;
 	}
 	
@@ -20,13 +23,13 @@ public class TabListener<T extends Fragment> implements ActionBar.TabListener{
 	public void onTabSelected(Tab tab, FragmentTransaction tx) {
 		if(fragment == null) {
 			try {
-				tx.replace(R.id.feed_fragment, clazz.newInstance());
+				fragment = Fragment.instantiate(activity, clazz.getName());
+				tx.add(R.id.feed_fragment, fragment);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		} else {
-			tx.replace(R.id.feed_fragment,fragment);
+			tx.attach(fragment);
 		}
 		
 	}

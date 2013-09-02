@@ -21,7 +21,7 @@ public class MyFeedActivity extends ActionBarActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 	    
-	    new TabHelper().addTabsTo(actionBar);
+	    new TabHelper(this).addTabsTo(actionBar);
 	    
 	}
 	
