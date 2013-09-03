@@ -6,7 +6,7 @@ public class EstadaoFeedFragment extends FeedFragment {
 
 	@Override
 	public String[] getFeedUrl() {
-		return new String[] {"http://economia.estadao.com.br/EN/rss/ultimas.xml"};
+		return new String[] {"http://economia.estadao.com.br/EN/rss/aemercados.xml"};
 	}
 	
 	@Override

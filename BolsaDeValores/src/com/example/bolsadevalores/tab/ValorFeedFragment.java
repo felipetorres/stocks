@@ -6,7 +6,7 @@ public class ValorFeedFragment extends FeedFragment {
 
 	@Override
 	public String[] getFeedUrl() {
-		return new String[] {"http://www.valor.com.br/financas/rss"};
+		return new String[] {"http://www.valor.com.br/rss"};
 	}
 	
 	@Override
