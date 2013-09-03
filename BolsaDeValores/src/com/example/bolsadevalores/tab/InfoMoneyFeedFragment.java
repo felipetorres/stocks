@@ -16,7 +16,7 @@ public class InfoMoneyFeedFragment extends FeedFragment {
 	
 	@Override
 	public int getMaxItems() {
-		return 10;
+		return 20;
 	}
 	
 	@Override
