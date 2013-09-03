@@ -3,8 +3,8 @@ package com.example.bolsadevalores.menu;
 import java.util.List;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.support.v7.view.ActionMode;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,13 +22,13 @@ public class StockContextActionBar {
 	private Activity activity;
 	private Stock selected;
 	private GridView grid;
-	private ErrorHandler handler;
+	private ErrorHandler errorHandler;
 	private View view;
 
 	public StockContextActionBar(Activity activity, GridView grid, ErrorHandler handler) {
 		this.activity = activity;
 		this.grid = grid;
-		this.handler = handler;
+		this.errorHandler = handler;
 	}
 	
 	public StockContextActionBar withSelected(Stock selected) {
@@ -68,7 +68,7 @@ public class StockContextActionBar {
 			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 				if(item.getItemId() == R.id.stock_context_remove) {
 					new SharedPreferencesAccessor(activity, Bookmark.STOCK).removeFromBookmark(selected);
-					loadStocks();
+					loadStocksWithTicker();
 					mode.finish();
 					return true;
 				}
@@ -78,14 +78,24 @@ public class StockContextActionBar {
 		};
 	}
 	
-	public void loadStocks() {
+	public void loadStocksWithTicker() {
 		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity, Bookmark.STOCK);
 
 		List<String> bookmarkedStocks = accessor.retrieveBookmarked();
 
 		if(bookmarkedStocks.size() >= 1) {
-			String[] stocks = (String[]) bookmarkedStocks.toArray();
-			new StockTask(activity, grid, handler).execute(stocks);
+			final String[] stocks = (String[]) bookmarkedStocks.toArray();
+			new StockTask(activity, grid, errorHandler, true).execute(stocks);
+			
+			final Handler handler = new Handler();
+			handler.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					new StockTask(activity, grid, errorHandler, false).execute(stocks);
+					handler.postDelayed(this, 30000);
+				}
+			});
 		}
 	}
 

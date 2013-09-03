@@ -38,7 +38,7 @@ public class StockActivity extends ActionBarActivity implements ErrorHandler {
 	protected void onResume() {
 		super.onResume();
 		
-		customActionMode.loadStocks();
+		customActionMode.loadStocksWithTicker();
 		
 		grid.setOnItemClickListener(new OnItemClickListener() {
 

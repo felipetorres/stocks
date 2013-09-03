@@ -24,17 +24,19 @@ public class StockTask extends
 	private GridView grid;
 	private ProgressManager progressManager;
 	private ErrorHandler errorHandler;
+	private boolean withProgress;
 
-	public StockTask(Activity activity, GridView grid, ErrorHandler errorHandler) {
+	public StockTask(Activity activity, GridView grid, ErrorHandler errorHandler, boolean withProgress) {
 		this.activity = activity;
 		this.grid = grid;
 		this.progressManager = new ProgressManager(activity);
 		this.errorHandler = errorHandler;
+		this.withProgress = withProgress;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		progressManager.show();
+		if(withProgress) progressManager.show();
 	}
 
 	@Override
@@ -60,7 +62,7 @@ public class StockTask extends
 	@Override
 	protected void onPostExecute(JSONResponseObject result) {
 
-		progressManager.hide();
+		if(withProgress) progressManager.hide();
 
 		try {
 			List<Stock> stocks = result.getStocks();
