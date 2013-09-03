@@ -15,13 +15,13 @@ public class MyFeedActivity extends ActionBarActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_feed);
+		setContentView(R.layout.activity_feed);
 		
         ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    actionBar.setDisplayHomeAsUpEnabled(true);
 	    
-	    new TabHelper(this).addTabsTo(actionBar);
+	    new TabHelper(this).addTabsTo(actionBar).withSwipe(getSupportFragmentManager());
 	    
 	}
 	
