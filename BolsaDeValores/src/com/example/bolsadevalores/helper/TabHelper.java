@@ -59,7 +59,6 @@ public class TabHelper {
 		try {
 		for (Class<? extends Fragment> clazz : clazzes) {
 			Fragment fragment = clazz.newInstance();
-			fragment.setHasOptionsMenu(true);
 			fragments.add(fragment);
 		}
 		}catch (Exception e) {

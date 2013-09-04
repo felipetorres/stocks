@@ -54,6 +54,7 @@ public class StockFragment extends Fragment implements WithTabName{
 	@Override
 	public void onResume() {
 		super.onResume();
+		setHasOptionsMenu(true);
 		
 		customActionMode.loadStocksWithTicker();
 		

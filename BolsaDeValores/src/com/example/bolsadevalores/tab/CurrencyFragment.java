@@ -46,6 +46,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 	@Override
 	public void onResume() {
 		super.onResume();
+		setHasOptionsMenu(true);
 		
 		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity, Bookmark.CURRENCY);
 		List<String> bookmarkedCurrencies = accessor.retrieveBookmarked();
