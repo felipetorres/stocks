@@ -41,6 +41,7 @@ public class DetailsTask extends
 		String resposta;
 		try {
 			resposta = new YahooWebConnector(stockSymbols).connectToStockUrl();
+			
 			return new Gson().fromJson(resposta, JSONSingleResponseObject.class);
 		} catch (Exception e) {
 			return new JSONSingleResponseObject();

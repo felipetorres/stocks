@@ -50,6 +50,7 @@ public class DetailsActivity extends ActionBarActivity implements ErrorHandler{
 
 	@Override
 	public void onError(Exception ex) {
+		ex.printStackTrace();
 		new ErrorDialog(this).withText("Details error").show();
 	}
 }

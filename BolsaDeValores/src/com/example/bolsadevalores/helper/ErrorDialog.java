@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.example.bolsadevalores.R;
 
@@ -21,17 +20,14 @@ public class ErrorDialog {
 
 	private void initialize() {
 		builder = new AlertDialog.Builder(activity);
+		
 		builder.setPositiveButton(R.string.error_dialog_refresh,
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						Intent activityIntent = activity.getIntent();
-						Bundle extras = activityIntent.getExtras();
 						activity.finish();
 						
-						Intent intent = new Intent(activityIntent);
-						intent.putExtras(extras);
-						
-						activity.startActivity(intent);
+						activity.startActivity(activityIntent);
 					}
 				})
 				.setNegativeButton(android.R.string.cancel,
