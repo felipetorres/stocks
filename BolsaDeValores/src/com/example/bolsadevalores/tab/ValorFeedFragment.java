@@ -2,7 +2,7 @@ package com.example.bolsadevalores.tab;
 
 import com.tinymission.rss.FeedFragment;
 
-public class ValorFeedFragment extends FeedFragment {
+public class ValorFeedFragment extends FeedFragment implements WithTabName {
 
 	@Override
 	public String[] getFeedUrl() {

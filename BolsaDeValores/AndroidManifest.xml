@@ -17,8 +17,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppBaseTheme" >
         <activity
-            android:name="com.example.bolsadevalores.activity.StockActivity"
-            android:label="@string/app_name" >
+            android:name="com.example.bolsadevalores.activity.MarketActivity"
+            android:label="@string/title_activity_market" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,31 +29,25 @@
             android:name="com.example.bolsadevalores.activity.MyFeedActivity"
             android:label="@string/title_activity_feed" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.StockActivity"/>
+                android:value="com.example.bolsadevalores.activity.MarketActivity"/>
         </activity>
         <activity
             android:name="com.example.bolsadevalores.activity.StockSearchActivity"
             android:label="@string/title_activity_search_stock" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.StockActivity"/>
+                android:value="com.example.bolsadevalores.activity.MarketActivity"/>
         </activity>
         <activity
             android:name="com.example.bolsadevalores.activity.DetailsActivity"
             android:label="@string/title_activity_details" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.StockActivity"/>
-        </activity>
-        <activity
-            android:name="com.example.bolsadevalores.activity.CurrencyActivity"
-            android:label="@string/title_activity_currency" >
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.StockActivity"/>
+                android:value="com.example.bolsadevalores.activity.MarketActivity"/>
         </activity>
         <activity
             android:name="com.example.bolsadevalores.activity.CurrencySearchActivity"
             android:label="@string/title_activity_search_stock" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.bolsadevalores.activity.CurrencyActivity"/>
+                android:value="com.example.bolsadevalores.activity.MarketActivity"/>
         </activity>
     </application>
 
