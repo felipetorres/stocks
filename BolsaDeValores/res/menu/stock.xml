@@ -12,9 +12,4 @@
         android:icon="@drawable/ic_rss"
         android:title="@string/menu_feeds"
         com.example.bolsadevalores:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/menu_currency"
-        android:icon="@drawable/ic_currency_search"
-        android:title="@string/menu_currency"
-        com.example.bolsadevalores:showAsAction="ifRoom"/>
 </menu>
