@@ -20,7 +20,8 @@
                 android:layout_span="2"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textSize="20sp" />
+                android:textSize="20sp" 
+                android:textColor="#fff"/>
         </TableRow>
 
         <TableRow
@@ -34,14 +35,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Última atualização:" />
+                android:text="@string/details_updated_at" 
+                android:textColor="#fff"/>
 
             <TextView
                 android:id="@+id/details_updated_at"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="#fff"/>
         </TableRow>
 
         <TableRow
@@ -55,14 +58,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Dia:" />
+                android:text="@string/details_day" 
+                android:textColor="#fff"/>
 
             <TextView
                 android:id="@+id/details_day"
                 android:textStyle="bold"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="#fff"/>
         </TableRow>
 
         <TableRow
@@ -76,14 +81,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Último:" />
+                android:text="@string/details_recent" 
+                android:textColor="#fff"/>
 
             <TextView
                 android:textStyle="bold"
                 android:id="@+id/details_recent"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="#fff"/>
         </TableRow>
 
         <TableRow
@@ -97,14 +104,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Fechamento anterior:" />
+                android:text="@string/details_previous_close" 
+                android:textColor="#fff"/>
 
             <TextView
                 android:textStyle="bold"
                 android:id="@+id/details_previous_close"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="#fff"/>
         </TableRow>
 
         <TableRow
@@ -118,14 +127,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="Abertura:" />
+                android:text="@string/details_open" 
+                android:textColor="#fff"/>
 
             <TextView
                 android:textStyle="bold"
                 android:id="@+id/details_open"
                 android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" 
+                android:textColor="#fff"/>
         </TableRow>
     </TableLayout>
 

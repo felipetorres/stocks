@@ -18,5 +18,11 @@
     <string name="menu_currency_search">Currency search</string>
     
     <string name="context_stock_delete">Delete</string>
+    
+    <string name="details_updated_at">Última atualização:</string>
+    <string name="details_day">Dia:</string>
+    <string name="details_recent">Último:</string>
+    <string name="details_previous_close">Fechamento anterior:</string>
+    <string name="details_open">Abertura:</string>
 
 </resources>

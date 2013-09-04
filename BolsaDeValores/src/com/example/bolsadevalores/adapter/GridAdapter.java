@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ColorHelper;
 import com.example.bolsadevalores.model.Stock;
 
 public class GridAdapter extends BaseAdapter{
@@ -61,18 +62,8 @@ public class GridAdapter extends BaseAdapter{
 //			value = matcher.group(1);
 //		}
 		
-		setBackgroundColorTo(percentChange, stock.getRealtimePercentage());
+		new ColorHelper(activity).setBackgroundColorTo(percentChange, stock.getRealtimePercentage());
 		
 		return layout;
-	}
-
-	private void setBackgroundColorTo(TextView percentChange, String change) {
-		if(change.startsWith("-")) {
-			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.negativo));
-		} else if(change.startsWith("+")) {
-			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.positivo));
-		} else {
-			percentChange.setBackgroundColor(activity.getResources().getColor(R.color.neutro));
-		}
 	}
 }

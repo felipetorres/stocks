@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ColorHelper;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
@@ -66,7 +67,12 @@ public class DetailsTask extends
 		
 			name.setText(stock.Name);
 			updatedAt.setText(stock.getPrettyLastTradeDateAndTime());
-			dayValue.setText(stock.getRealtimePercentage());
+			
+			String realtimePercentage = stock.getRealtimePercentage();
+			
+			dayValue.setText(realtimePercentage);
+			new ColorHelper(activity).setTextColorTo(dayValue, realtimePercentage);
+			
 			lastValue.setText(stock.getLastTradePrice());
 			previousCloseValue.setText(stock.PreviousClose);
 			openValue.setText(stock.Open);
