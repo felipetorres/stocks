@@ -24,6 +24,8 @@ public class StockContextActionBar {
 	private GridView grid;
 	private ErrorHandler errorHandler;
 	private View view;
+	private Runnable ticker;
+	private Handler handler = new Handler();
 
 	public StockContextActionBar(Activity activity, GridView grid, ErrorHandler handler) {
 		this.activity = activity;
@@ -87,16 +89,19 @@ public class StockContextActionBar {
 			final String[] stocks = (String[]) bookmarkedStocks.toArray();
 			new StockTask(activity, grid, errorHandler, true).execute(stocks);
 			
-			final Handler handler = new Handler();
-			handler.post(new Runnable() {
-				
+			ticker = new Runnable() {
 				@Override
 				public void run() {
 					new StockTask(activity, grid, errorHandler, false).execute(stocks);
-					handler.postDelayed(this, 30000);
+					System.out.println("bla");
+					handler.postDelayed(this, 5000);
 				}
-			});
+			};
+			handler.post(ticker);
 		}
 	}
 
+	public void stopTicker() {
+		handler.removeCallbacks(ticker);
+	}
 }
