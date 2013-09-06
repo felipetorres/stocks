@@ -1,22 +1,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent" 
+    android:background="@drawable/item_currency_background"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp">
 
     <TextView
         android:id="@+id/item_currency_name" 
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"/>
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:textColor="#FFF"
+        android:textSize="17sp"/>
     
     <TextView
         android:id="@+id/item_currency_value" 
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/item_currency_name"/>
+        android:layout_toRightOf="@id/item_currency_name"
+        android:textColor="#FFF"
+        android:textSize="17sp"/>
     
     <TextView
-        android:id="@+id/item_currency_percentChange" 
+        android:id="@+id/item_currency_percentChange"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toRightOf="@id/item_currency_value"/>
+        android:layout_alignParentRight="true"
+        android:textSize="17sp"/>
 
 </RelativeLayout>
