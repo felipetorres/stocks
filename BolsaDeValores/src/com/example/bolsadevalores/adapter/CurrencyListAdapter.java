@@ -3,21 +3,20 @@ package com.example.bolsadevalores.adapter;
 import java.util.List;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
-import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.Currency;
 
 public class CurrencyListAdapter extends BaseAdapter{
 	
 	private Activity activity;
-	private List<Stock> currencies;
+	private List<Currency> currencies;
 
-	public CurrencyListAdapter(Activity activity, List<Stock> currencies) {
+	public CurrencyListAdapter(Activity activity, List<Currency> currencies) {
 		this.activity = activity;
 		this.currencies = currencies;
 	}
@@ -44,11 +43,13 @@ public class CurrencyListAdapter extends BaseAdapter{
 		
 		TextView name = (TextView) layout.findViewById(R.id.item_currency_name);
 		TextView value = (TextView) layout.findViewById(R.id.item_currency_value);
+		TextView percentChange = (TextView) layout.findViewById(R.id.item_currency_percentChange);
 		
-		Stock currency = currencies.get(position);
+		Currency currency = currencies.get(position);
 		
-		name.setText(currency.Name);
-		value.setText(currency.Ask);
+		name.setText(currency.getName());
+		value.setText(currency.getValue());
+		percentChange.setText(currency.getPercentChange());
 		
 		return layout;
 	}

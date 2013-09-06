@@ -26,6 +26,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 
 	private ListView currencyList;
 	private ActionBarActivity activity;
+	private View layout;
 	
 	@Override
 	public void onAttach(Activity activity) {
@@ -37,7 +38,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View layout = inflater.inflate(R.layout.fragment_currency, null);
+		layout = inflater.inflate(R.layout.fragment_currency, null);
 		currencyList = (ListView) layout.findViewById(R.id.currency_list);
 		
 		return layout;
@@ -54,7 +55,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 		if(bookmarkedCurrencies.size() >= 1) {
 			String[] currencies = (String[]) bookmarkedCurrencies.toArray();
 			
-			new CurrencyTask(activity, currencyList,(ErrorHandler) activity).execute(currencies);
+			new CurrencyTask(activity, layout, currencyList,(ErrorHandler) activity).execute(currencies);
 		}
 		
 	}

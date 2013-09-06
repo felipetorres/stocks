@@ -2,26 +2,26 @@ package com.example.bolsadevalores.web;
 
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 public class YahooWebConnector {
 
 	private static String YAHOO_FINANCE;
-	private List<String> symbols;
 	
-	public YahooWebConnector(List<String> symbols) {
-		this.symbols = symbols;
-	}
-	
-	public String connectToStockUrl() throws Exception {
-		buildStockUrl();
+	public String connectToStockUrl(List<String> symbols) throws Exception {
+		buildStockUrl(symbols);
 		return new HttpConnector().getTo(YAHOO_FINANCE);
 	}
 	
-	public String connectToCurrencyUrl() throws Exception {
-		buildCurrencyUrl();
-		return new HttpConnector().getTo(YAHOO_FINANCE);
+	public Elements connectToCurrencyUrl(String symbol) throws Exception {
+		buildCurrencyUrl(symbol);
+		Document document = Jsoup.connect(YAHOO_FINANCE).get();
+		return document.select("[id~=(l10|c10|p20)], .time_rtq_content, .title h2");
 	}
 	
-	private YahooWebConnector buildStockUrl() {
+	private YahooWebConnector buildStockUrl(List<String> symbols) {
 		
 		YAHOO_FINANCE = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(";
 		
@@ -34,15 +34,10 @@ public class YahooWebConnector {
 		return this;
 	}
 	
-	private YahooWebConnector buildCurrencyUrl() {
+	private YahooWebConnector buildCurrencyUrl(String symbol) {
 		
-		YAHOO_FINANCE = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(";
+		YAHOO_FINANCE = "http://finance.yahoo.com/q?s=" + symbol; //EURUSD=X
 		
-		for (String symbol : symbols) {
-			YAHOO_FINANCE += "%22"+symbol+"%22%2C"; //"%3DX%22%2C"
-		}
-		
-		YAHOO_FINANCE += "%22%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=";
 		return this;
 	}
 }

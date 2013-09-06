@@ -12,5 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_toRightOf="@id/item_currency_name"/>
+    
+    <TextView
+        android:id="@+id/item_currency_percentChange" 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/item_currency_value"/>
 
 </RelativeLayout>

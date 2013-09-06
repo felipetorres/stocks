@@ -93,7 +93,7 @@ public class StockContextActionBar {
 				@Override
 				public void run() {
 					new StockTask(activity, grid, errorHandler, false).execute(stocks);
-					handler.postDelayed(this, 5000);
+					handler.postDelayed(this, 30000);
 				}
 			};
 			handler.post(ticker);

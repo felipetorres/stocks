@@ -13,6 +13,10 @@ public class ProgressManager {
 		this.progress = activity.findViewById(R.id.progress);
 	}
 	
+	public ProgressManager(View view) {
+		this.progress = view.findViewById(R.id.progress);
+	}
+	
 	public void show() {
 		progress.setVisibility(View.VISIBLE);
 	}
