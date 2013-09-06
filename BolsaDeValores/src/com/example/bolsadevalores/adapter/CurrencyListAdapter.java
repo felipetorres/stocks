@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.helper.ColorHelper;
 import com.example.bolsadevalores.model.Currency;
 
 public class CurrencyListAdapter extends BaseAdapter{
@@ -45,11 +46,16 @@ public class CurrencyListAdapter extends BaseAdapter{
 		TextView value = (TextView) layout.findViewById(R.id.item_currency_value);
 		TextView percentChange = (TextView) layout.findViewById(R.id.item_currency_percentChange);
 		
+		
 		Currency currency = currencies.get(position);
+		
+		ColorHelper colorHelper = new ColorHelper(activity);
+		String textPercentChange = currency.getPercentChange();
 		
 		name.setText(currency.getName());
 		value.setText(currency.getValue());
-		percentChange.setText(currency.getPercentChange());
+		percentChange.setText(textPercentChange);
+		colorHelper.setTextColorTo(percentChange, textPercentChange);
 		
 		return layout;
 	}

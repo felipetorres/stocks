@@ -97,6 +97,7 @@ public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObjec
 	}
 	
 	private URI buildURIWith(String stock) {
+		stock = stock.replace("=", "%3D");
 		String uri = "http://autoc.finance.yahoo.com/autoc?query=" + stock
 				+ "&callback=YAHOO.Finance.SymbolSuggest.ssCallback";
 
