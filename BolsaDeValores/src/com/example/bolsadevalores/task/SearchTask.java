@@ -14,11 +14,9 @@ import org.apache.http.util.EntityUtils;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
-import com.example.bolsadevalores.adapter.StockSearchAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;

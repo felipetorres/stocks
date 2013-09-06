@@ -2,7 +2,6 @@ package com.example.bolsadevalores.model;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.TimeZone;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
