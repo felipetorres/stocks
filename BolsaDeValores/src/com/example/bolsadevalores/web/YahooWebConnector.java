@@ -18,7 +18,7 @@ public class YahooWebConnector {
 	public Elements connectToCurrencyUrl(String symbol) throws Exception {
 		buildCurrencyUrl(symbol);
 		Document document = Jsoup.connect(YAHOO_FINANCE).get();
-		return document.select("[id~=(l10|c10|p20)], .time_rtq_content, .title h2");
+		return document.select("[id~=(l10|c10|p20|t10|market_time)], .time_rtq_content, .title h2");
 	}
 	
 	private YahooWebConnector buildStockUrl(List<String> symbols) {

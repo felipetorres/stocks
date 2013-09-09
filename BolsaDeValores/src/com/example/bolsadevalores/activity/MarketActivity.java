@@ -24,6 +24,7 @@ public class MarketActivity extends ActionBarActivity implements ErrorHandler {
 	
 	@Override
 	public void onError(Exception ex) {
+		ex.printStackTrace();
 		new ErrorDialog(this).withText("Deu pau").show();
 	}
 }

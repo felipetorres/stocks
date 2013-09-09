@@ -1,27 +1,36 @@
 package com.example.bolsadevalores.model;
 
+import java.util.Locale;
+
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.select.Elements;
 
 public class Currency {
 
 	private Elements rawParams;
+	private String marketTime;
 	private String name;
 	private String value;
 	private CurrencyState state;
 	private String valueChange;
 	private String percentChange;
+	private String lastChange;
 
 	public Currency(Elements rawParams) {
 		this.rawParams = rawParams;
-		this.name = textAtPosition(0).split(" ")[0];
-		this.value = textAtPosition(1);
-		this.state = getStateFromCssClass();
-		this.valueChange = textAtPosition(3);
-		this.percentChange = textAtPosition(4);
+		this.marketTime = textAtPosition(0).split("-")[0];
+		this.name = textAtPosition(1).split(" ")[0];
+		this.value = textAtPosition(2);
+		this.state = getStateFromCssClass(3);
+		this.valueChange = textAtPosition(4);
+		this.percentChange = textAtPosition(5);
+		this.lastChange = textAtPosition(6);
 	}
 
-	private CurrencyState getStateFromCssClass() {
-		String cssClass = classAtPosition(2);
+	private CurrencyState getStateFromCssClass(int pos) {
+		String cssClass = classAtPosition(pos);
 		if(cssClass.contains("up_g")) return CurrencyState.UP;
 		if(cssClass.contains("down_r")) return CurrencyState.DOWN;
 		return CurrencyState.NEUTRAL;
@@ -48,5 +57,21 @@ public class Currency {
 		if(state.equals(CurrencyState.UP)) return "+" + percentChange;
 		if(state.equals(CurrencyState.DOWN)) return "-" + percentChange;
 		return percentChange;
+	}
+	
+	
+	public String getPrettyLastChange() {
+		
+		//Mon, Sep 9, 2013, 2:10PM EDT
+		this.marketTime = this.marketTime.replaceFirst("(.*,.*,.*,).*", "$1");
+		
+		//2:09PM EDT
+		this.lastChange = this.lastChange.replaceFirst("(AM|PM).*", "$1");
+		
+		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa").withLocale(Locale.US);
+		DateTime parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange);
+
+		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM/yyyy HH:mm");
+		return parsed.toString(formatTo);
 	}
 }
