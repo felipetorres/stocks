@@ -48,8 +48,8 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onStart() {
+		super.onStart();
 		setHasOptionsMenu(true);
 		
 		contextActionBar.loadCurrenciesWithTicker();
@@ -67,13 +67,19 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 				return true;
 			}
 		});
-		
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.currency, menu);
 		new OptionsMenuDelegator(activity).withSearchView(menu, CurrencySearchActivity.class);
+		contextActionBar.startTicker();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		contextActionBar.stopTicker();
 	}
 	
 	@Override

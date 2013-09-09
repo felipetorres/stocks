@@ -57,10 +57,10 @@ public class TabHelper {
 		
 		final List<Fragment> fragments = new ArrayList<Fragment>();
 		try {
-		for (Class<? extends Fragment> clazz : clazzes) {
-			Fragment fragment = clazz.newInstance();
-			fragments.add(fragment);
-		}
+			for (Class<? extends Fragment> clazz : clazzes) {
+				Fragment fragment = clazz.newInstance();
+				fragments.add(fragment);
+			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,6 +73,9 @@ public class TabHelper {
 			@Override
 			public void onPageSelected(int position) {
 				activity.getSupportActionBar().setSelectedNavigationItem(position);
+				for (int i=0; i<fragments.size(); i++) {
+					if(i!=position) fragments.get(i).onPause();
+				}
 			}
 		});
 	}

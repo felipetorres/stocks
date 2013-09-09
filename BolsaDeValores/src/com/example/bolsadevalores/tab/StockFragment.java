@@ -52,8 +52,8 @@ public class StockFragment extends Fragment implements WithTabName{
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
+	public void onStart() {
+		super.onStart();
 		setHasOptionsMenu(true);
 		
 		customActionMode.loadStocksWithTicker();
@@ -88,15 +88,16 @@ public class StockFragment extends Fragment implements WithTabName{
 	}
 	
 	@Override
-	public void onPause() {
-		super.onPause();
-		customActionMode.stopTicker();
-	}
-	
-	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.stock, menu);
 		new OptionsMenuDelegator(activity).withSearchView(menu, StockSearchActivity.class);
+		customActionMode.startTicker();
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		customActionMode.stopTicker();
 	}
 	
 	@Override

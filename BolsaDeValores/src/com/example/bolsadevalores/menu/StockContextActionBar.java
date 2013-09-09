@@ -96,11 +96,14 @@ public class StockContextActionBar {
 					handler.postDelayed(this, 30000);
 				}
 			};
-			handler.post(ticker);
 		}
 	}
 
 	public void stopTicker() {
 		handler.removeCallbacks(ticker);
+	}
+	
+	public void startTicker() {
+		handler.post(ticker);
 	}
 }
