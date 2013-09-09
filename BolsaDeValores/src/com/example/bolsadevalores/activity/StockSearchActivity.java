@@ -16,7 +16,7 @@ import com.example.bolsadevalores.adapter.StockSearchAdapter;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.model.Suggestion;
 import com.example.bolsadevalores.task.SearchTask;
 
 public class StockSearchActivity extends ActionBarActivity implements ErrorHandler{

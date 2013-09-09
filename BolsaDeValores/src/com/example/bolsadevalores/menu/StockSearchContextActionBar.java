@@ -8,8 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.model.Bookmark;
+import com.example.bolsadevalores.model.Suggestion;
 
 public class StockSearchContextActionBar {
 	

@@ -7,9 +7,9 @@ import java.util.List;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.model.Bookmark;
-import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.Bookmarkable;
+import com.example.bolsadevalores.model.Suggestion;
 
 public class SharedPreferencesAccessor {
 	
@@ -34,15 +34,14 @@ public class SharedPreferencesAccessor {
 		}
 	}
 	
-	public void removeFromBookmark(Stock stock) {
+	public void removeFromBookmark(Bookmarkable bookmarkable) {
 		List<String> stocks = new ArrayList<String>();
 		
 		stocks.addAll(this.retrieveBookmarked());
 		
-		stocks.remove(stock.Symbol);
+		stocks.remove(bookmarkable.getSymbol());
 		String string = listToString(stocks);
 		writeToSharedPreferences(string);
-		
 	}
 	
 	public List<String> retrieveBookmarked() {

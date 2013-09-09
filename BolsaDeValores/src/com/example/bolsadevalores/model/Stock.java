@@ -8,7 +8,7 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-public class Stock {
+public class Stock implements Bookmarkable{
 	
 	public String symbol;
     public String Ask;
@@ -134,6 +134,11 @@ public class Stock {
 	public String getLastTradePrice() {
 		if(Ask != null) return Ask;
 		return LastTradePriceOnly;
+	}
+
+	@Override
+	public String getSymbol() {
+		return this.Symbol;
 	}
     
 }

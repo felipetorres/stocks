@@ -12,8 +12,8 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
 import com.example.bolsadevalores.menu.CurrencySearchContextActionBar;
+import com.example.bolsadevalores.model.Suggestion;
 
 public class CurrencySearchAdapter extends BaseAdapter{
 	

@@ -8,8 +8,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.select.Elements;
 
-public class Currency {
+public class Currency implements Bookmarkable{
 
+	private String symbol;
 	private Elements rawParams;
 	private String marketTime;
 	private String name;
@@ -19,7 +20,8 @@ public class Currency {
 	private String percentChange;
 	private String lastChange;
 
-	public Currency(Elements rawParams) {
+	public Currency(String symbol, Elements rawParams) {
+		this.symbol = symbol;
 		this.rawParams = rawParams;
 		this.marketTime = textAtPosition(0).split("-")[0];
 		this.name = textAtPosition(1).split(" ")[0];
@@ -78,5 +80,10 @@ public class Currency {
 		
 		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM HH:mm");
 		return parsed.toString(formatTo);
+	}
+	
+	@Override
+	public String getSymbol() {
+		return this.symbol;
 	}
 }

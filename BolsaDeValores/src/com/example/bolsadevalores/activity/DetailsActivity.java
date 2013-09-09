@@ -10,7 +10,7 @@ import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ErrorDialog;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.model.Suggestion;
 import com.example.bolsadevalores.task.DetailsTask;
 
 public class DetailsActivity extends ActionBarActivity implements ErrorHandler{

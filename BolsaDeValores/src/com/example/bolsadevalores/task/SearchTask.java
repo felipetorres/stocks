@@ -20,7 +20,7 @@ import android.widget.ListView;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSymbolSuggestObject;
-import com.example.bolsadevalores.json.JSONSymbolSuggestObject.Suggestion;
+import com.example.bolsadevalores.model.Suggestion;
 import com.google.gson.Gson;
 
 public class SearchTask extends AsyncTask<String, Object, JSONSymbolSuggestObject> {

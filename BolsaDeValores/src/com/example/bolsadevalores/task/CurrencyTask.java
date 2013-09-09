@@ -24,17 +24,19 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	private ListView listView;
 	private ErrorHandler errorHandler;
 	private ProgressManager progressManager;
+	private boolean withProgress;
 
-	public CurrencyTask(Activity activity, View view, ListView listView, ErrorHandler errorHandler) {
+	public CurrencyTask(Activity activity, View view, ListView listView, ErrorHandler errorHandler, boolean withProgress) {
 		this.activity = activity;
 		this.listView = listView;
 		this.errorHandler = errorHandler;
+		this.withProgress = withProgress;
 		this.progressManager = new ProgressManager(view);
 	}
 	
 	@Override
 	protected void onPreExecute() {
-		progressManager.show();
+		if(withProgress) progressManager.show();
 	}
 	
 	@Override
@@ -47,7 +49,7 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 		try {
 			for (String symbol : currencySymbols) {
 				Elements responseElements = new YahooWebConnector().connectToCurrencyUrl(symbol);
-				currencies.add(new Currency(responseElements));
+				currencies.add(new Currency(symbol, responseElements));
 			}
 			return currencies;
 		
@@ -58,7 +60,7 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	
 	@Override
 	protected void onPostExecute(List<Currency> currencies) {
-		progressManager.hide();
+		if(withProgress) progressManager.hide();
 		
 		try {
 			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
