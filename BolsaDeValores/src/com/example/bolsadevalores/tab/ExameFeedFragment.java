@@ -6,7 +6,7 @@ public class ExameFeedFragment extends FeedFragment implements WithTabName{
 
 	@Override
 	public String[] getFeedUrl() {
-		return new String[] {"http://feeds.feedburner.com/EXAME-Mercados"};
+		return new String[] {"http://feeds.feedburner.com/SoEmExame"};
 	}
 	
 	@Override
