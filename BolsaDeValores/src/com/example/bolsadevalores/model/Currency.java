@@ -3,6 +3,7 @@ package com.example.bolsadevalores.model;
 import java.util.Locale;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.select.Elements;
@@ -68,10 +69,14 @@ public class Currency {
 		//2:09PM EDT
 		this.lastChange = this.lastChange.replaceFirst("(AM|PM).*", "$1");
 		
-		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa").withLocale(Locale.US);
-		DateTime parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange);
-
-		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM/yyyy HH:mm");
+		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa")
+										.withLocale(Locale.US)
+										.withZone(DateTimeZone.forID("America/New_York"));
+		
+		DateTime parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange)
+									.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+		
+		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM HH:mm");
 		return parsed.toString(formatTo);
 	}
 }

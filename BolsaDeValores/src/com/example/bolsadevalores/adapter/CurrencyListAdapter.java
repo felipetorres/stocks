@@ -44,6 +44,7 @@ public class CurrencyListAdapter extends BaseAdapter{
 		
 		TextView name = (TextView) layout.findViewById(R.id.item_currency_name);
 		TextView value = (TextView) layout.findViewById(R.id.item_currency_value);
+		TextView lastChange = (TextView) layout.findViewById(R.id.item_currency_lastChange);
 		TextView percentChange = (TextView) layout.findViewById(R.id.item_currency_percentChange);
 		
 		
@@ -54,6 +55,7 @@ public class CurrencyListAdapter extends BaseAdapter{
 		
 		name.setText(currency.getName());
 		value.setText(currency.getValue());
+		lastChange.setText(currency.getPrettyLastChange());
 		percentChange.setText(textPercentChange);
 		colorHelper.setTextColorTo(percentChange, textPercentChange);
 		

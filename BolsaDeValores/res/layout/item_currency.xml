@@ -11,6 +11,7 @@
         android:id="@+id/item_currency_name" 
         android:layout_width="100dp"
         android:layout_height="match_parent"
+        android:layout_centerVertical="true"
         android:textColor="#FFF"
         android:textSize="17sp"/>
     
@@ -23,10 +24,20 @@
         android:textSize="17sp"/>
     
     <TextView
+        android:id="@+id/item_currency_lastChange" 
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_below="@id/item_currency_value"
+        android:layout_toRightOf="@id/item_currency_name"
+        android:textColor="#FFF"
+        android:textSize="12sp"/>
+    
+    <TextView
         android:id="@+id/item_currency_percentChange"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:textSize="17sp"/>
+        android:layout_centerVertical="true"
+        android:textSize="18sp"/>
 
 </RelativeLayout>
