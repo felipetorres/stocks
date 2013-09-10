@@ -63,8 +63,10 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 		if(withProgress) progressManager.hide();
 		
 		try {
-			CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
-			listView.setAdapter(adapter);
+			if(currencies != null) {
+				CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
+				listView.setAdapter(adapter);
+			}
 		}catch (Exception e) {
 			errorHandler.onError(e);
 		}

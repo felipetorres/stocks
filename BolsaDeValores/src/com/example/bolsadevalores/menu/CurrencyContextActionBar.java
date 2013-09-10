@@ -56,11 +56,12 @@ public class CurrencyContextActionBar {
 
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
-
+				view.setBackgroundResource(R.drawable.item_currency_background);
 			}
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+				view.setBackgroundResource(R.drawable.item_currency_background_selected);
 				mode.getMenuInflater().inflate(R.menu.stock_context, menu);
 
 				return true;

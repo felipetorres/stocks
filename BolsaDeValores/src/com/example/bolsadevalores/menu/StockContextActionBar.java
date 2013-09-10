@@ -54,13 +54,13 @@ public class StockContextActionBar {
 
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
-				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.back_border));
+				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.item_stock_background));
 
 			}
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.back_border_selected));
+				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.item_stock_background_selected));
 				mode.getMenuInflater().inflate(R.menu.stock_context, menu);
 
 				return true;

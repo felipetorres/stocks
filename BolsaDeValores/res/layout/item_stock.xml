@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="5dp"
     android:paddingBottom="8dp"
-    android:background="@drawable/back_border" >
+    android:background="@drawable/item_stock_background" >
 
     <TextView
 		android:textColor="#fff"
@@ -38,7 +38,7 @@
         android:id="@+id/item_percentChange"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/item_back_border"
+        android:background="@drawable/item_stock_percentchange_border"
         android:layout_marginTop="2dp"
     	android:layout_marginRight="2dp"
         android:padding="6dp"
