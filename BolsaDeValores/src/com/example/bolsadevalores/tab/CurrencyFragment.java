@@ -24,6 +24,7 @@ import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.menu.CurrencyContextActionBar;
 import com.example.bolsadevalores.model.Currency;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
 
 public class CurrencyFragment extends Fragment implements WithTabName, ResultHandler{
@@ -99,7 +100,7 @@ public class CurrencyFragment extends Fragment implements WithTabName, ResultHan
 	}
 
 	@Override
-	public void updateWith(List<Currency> currencies) {
+	public void updateWith(List<? extends ResponseElement> currencies) {
 		try {
 			if(currencies != null) {
 				CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);

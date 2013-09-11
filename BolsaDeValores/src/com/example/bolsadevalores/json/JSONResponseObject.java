@@ -6,6 +6,6 @@ import com.example.bolsadevalores.model.Stock;
 
 public interface JSONResponseObject {
 
-	List<Stock> getStocks() throws Exception;
+	List<Stock> getStocks();
 
 }

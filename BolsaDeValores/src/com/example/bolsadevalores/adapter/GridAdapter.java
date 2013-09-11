@@ -11,13 +11,14 @@ import android.widget.TextView;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.helper.ColorHelper;
 import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
 
 public class GridAdapter extends BaseAdapter{
 	
-	private List<Stock> stocks;
+	private List<? extends ResponseElement> stocks;
 	private Activity activity;
 
-	public GridAdapter(Activity activity, List<Stock> stocks) {
+	public GridAdapter(Activity activity, List<? extends ResponseElement> stocks) {
 		this.activity = activity;
 		this.stocks = stocks;
 	}
@@ -47,7 +48,7 @@ public class GridAdapter extends BaseAdapter{
 		TextView price = (TextView) layout.findViewById(R.id.item_price);
 		TextView lastTradeDate = (TextView) layout.findViewById(R.id.item_lastTradeDate);
 		
-		Stock stock = stocks.get(position);
+		Stock stock = (Stock) stocks.get(position);
 		
 		symbol.setText(stock.Symbol);
 		percentChange.setText(stock.getRealtimePercentage());

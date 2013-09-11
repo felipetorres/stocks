@@ -8,29 +8,28 @@ import android.support.v7.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 
 import com.example.bolsadevalores.R;
-import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.SharedPreferencesAccessor;
 import com.example.bolsadevalores.model.Bookmark;
 import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.interfaces.ResultHandler;
 import com.example.bolsadevalores.task.StockTask;
 
 public class StockContextActionBar {
 	
-	private Activity activity;
+	private ResultHandler resultHandler;
 	private Stock selected;
-	private GridView grid;
-	private ErrorHandler errorHandler;
 	private View view;
 	private Runnable ticker;
 	private Handler handler = new Handler();
+	private Activity activity;
+	private View withProgress;
 
-	public StockContextActionBar(Activity activity, GridView grid, ErrorHandler handler) {
-		this.activity = activity;
-		this.grid = grid;
-		this.errorHandler = handler;
+	public StockContextActionBar(ResultHandler resultHandler, View withProgress) {
+		this.resultHandler = resultHandler;
+		this.withProgress = withProgress;
+		this.activity = resultHandler.getParent();
 	}
 	
 	public StockContextActionBar withSelected(Stock selected) {
@@ -54,13 +53,13 @@ public class StockContextActionBar {
 
 			@Override
 			public void onDestroyActionMode(ActionMode arg0) {
-				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.item_stock_background));
+				view.setBackgroundResource(R.drawable.item_stock_background);
 
 			}
 
 			@Override
 			public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-				view.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.item_stock_background_selected));
+				view.setBackgroundResource(R.drawable.item_stock_background_selected);
 				mode.getMenuInflater().inflate(R.menu.stock_context, menu);
 
 				return true;
@@ -87,12 +86,12 @@ public class StockContextActionBar {
 
 		if(bookmarkedStocks.size() >= 1) {
 			final String[] stocks = (String[]) bookmarkedStocks.toArray();
-			new StockTask(activity, grid, errorHandler, true).execute(stocks);
+			new StockTask(resultHandler, withProgress, true).execute(stocks);
 			
 			ticker = new Runnable() {
 				@Override
 				public void run() {
-					new StockTask(activity, grid, errorHandler, false).execute(stocks);
+					new StockTask(resultHandler, withProgress, false).execute(stocks);
 					handler.postDelayed(this, 30000);
 				}
 			};

@@ -1,5 +1,7 @@
 package com.example.bolsadevalores.tab;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,22 +22,27 @@ import android.widget.GridView;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.activity.DetailsActivity;
 import com.example.bolsadevalores.activity.StockSearchActivity;
+import com.example.bolsadevalores.adapter.GridAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.menu.StockContextActionBar;
 import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
+import com.example.bolsadevalores.model.interfaces.ResultHandler;
 
-public class StockFragment extends Fragment implements WithTabName{
+public class StockFragment extends Fragment implements WithTabName, ResultHandler{
 	
 	private Stock selected;
 	private GridView grid;
 	private StockContextActionBar customActionMode;
 	private ActionBarActivity activity;
+	private ErrorHandler errorHandler;
 
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.activity = (ActionBarActivity) activity;
+		this.errorHandler = (ErrorHandler) activity;
 	}
 	
 	@Override
@@ -46,7 +53,7 @@ public class StockFragment extends Fragment implements WithTabName{
 		
 		grid = (GridView) layout.findViewById(R.id.gridView);
 		
-		customActionMode = new StockContextActionBar(activity, grid, (ErrorHandler) activity);
+		customActionMode = new StockContextActionBar(this, layout);
 		
 		return layout;
 	}
@@ -108,5 +115,22 @@ public class StockFragment extends Fragment implements WithTabName{
 	@Override
 	public String toString() {
 		return "Stocks";
+	}
+
+	@Override
+	public void updateWith(List<? extends ResponseElement> stocks) {
+		
+		try {
+			GridAdapter adapter = new GridAdapter(activity, stocks);
+			grid.setAdapter(adapter);
+		} catch(Exception e) {
+			e.printStackTrace();
+			errorHandler.onError(e);
+		}
+	}
+
+	@Override
+	public Activity getParent() {
+		return activity;
 	}
 }

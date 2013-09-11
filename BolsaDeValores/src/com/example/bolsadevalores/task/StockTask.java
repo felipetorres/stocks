@@ -3,40 +3,33 @@ package com.example.bolsadevalores.task;
 import java.util.Arrays;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.AsyncTask;
-import android.widget.GridView;
+import android.view.View;
 
-import com.example.bolsadevalores.adapter.GridAdapter;
-import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONListResponseObject;
 import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
-import com.example.bolsadevalores.model.Stock;
+import com.example.bolsadevalores.model.interfaces.ResultHandler;
 import com.example.bolsadevalores.web.YahooWebConnector;
 import com.google.gson.Gson;
 
 public class StockTask extends
 		AsyncTask<String, Object, JSONResponseObject> {
 
-	private Activity activity;
-	private GridView grid;
 	private ProgressManager progressManager;
-	private ErrorHandler errorHandler;
-	private boolean withProgress;
+	private boolean shouldShowProgress;
+	private ResultHandler resultHandler;
 
-	public StockTask(Activity activity, GridView grid, ErrorHandler errorHandler, boolean withProgress) {
-		this.activity = activity;
-		this.grid = grid;
-		this.progressManager = new ProgressManager(activity);
-		this.errorHandler = errorHandler;
-		this.withProgress = withProgress;
+	public StockTask(ResultHandler resultHandler, View progress, boolean shouldShowProgress) {
+		this.resultHandler = resultHandler;
+		this.progressManager = new ProgressManager(progress);
+		this.shouldShowProgress = shouldShowProgress;
 	}
 
 	@Override
 	protected void onPreExecute() {
-		if(withProgress) progressManager.show();
+		if(shouldShowProgress) progressManager.show();
 	}
 
 	@Override
@@ -61,16 +54,10 @@ public class StockTask extends
 
 	@Override
 	protected void onPostExecute(JSONResponseObject result) {
-
-		if(withProgress) progressManager.hide();
-
-		try {
-			List<Stock> stocks = result.getStocks();
-			GridAdapter adapter = new GridAdapter(activity, stocks);
-			grid.setAdapter(adapter);
-		} catch(Exception e) {
-			e.printStackTrace();
-			errorHandler.onError(e);
-		}
+		if(shouldShowProgress) progressManager.hide();
+		
+		resultHandler.updateWith(result.getStocks());
+			
+			
 	}
 }

@@ -4,11 +4,9 @@ import java.util.List;
 
 import android.app.Activity;
 
-import com.example.bolsadevalores.model.Currency;
-
 public interface ResultHandler {
 
-	public void updateWith(List<Currency> currencies);
+	public void updateWith(List<? extends ResponseElement> currencies);
 	
 	public Activity getParent();
 

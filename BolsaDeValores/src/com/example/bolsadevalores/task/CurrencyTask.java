@@ -11,11 +11,12 @@ import android.view.View;
 
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.model.Currency;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
 import com.example.bolsadevalores.web.YahooWebConnector;
 
 
-public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
+public class CurrencyTask extends AsyncTask<String, Object, List<ResponseElement>>{
 	
 	private ResultHandler resultHandler;
 	private ProgressManager progressManager;
@@ -33,9 +34,9 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	}
 	
 	@Override
-	protected List<Currency> doInBackground(String... params) {
+	protected List<ResponseElement> doInBackground(String... params) {
 		
-		List<Currency> currencies = new ArrayList<Currency>();
+		List<ResponseElement> currencies = new ArrayList<ResponseElement>();
 		
 		List<String> currencySymbols = Arrays.asList(params);
 		
@@ -52,7 +53,7 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	}
 	
 	@Override
-	protected void onPostExecute(List<Currency> currencies) {
+	protected void onPostExecute(List<ResponseElement> currencies) {
 		if(withProgress) progressManager.hide();
 		
 		resultHandler.updateWith(currencies);

@@ -9,8 +9,9 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import com.example.bolsadevalores.model.interfaces.Bookmarkable;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
 
-public class Stock implements Bookmarkable{
+public class Stock implements Bookmarkable, ResponseElement{
 	
 	public String symbol;
     public String Ask;

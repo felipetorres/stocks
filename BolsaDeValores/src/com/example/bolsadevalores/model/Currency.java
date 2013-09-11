@@ -9,8 +9,9 @@ import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.select.Elements;
 
 import com.example.bolsadevalores.model.interfaces.Bookmarkable;
+import com.example.bolsadevalores.model.interfaces.ResponseElement;
 
-public class Currency implements Bookmarkable{
+public class Currency implements Bookmarkable, ResponseElement{
 
 	private String symbol;
 	private Elements rawParams;

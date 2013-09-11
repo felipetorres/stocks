@@ -8,11 +8,11 @@ import com.example.bolsadevalores.R;
 public class ProgressManager {
 
 	private View progress;
-
+	
 	public ProgressManager(Activity activity) {
 		this.progress = activity.findViewById(R.id.progress);
 	}
-	
+
 	public ProgressManager(View view) {
 		this.progress = view.findViewById(R.id.progress);
 	}

@@ -1,5 +1,6 @@
 package com.example.bolsadevalores.json;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,8 +12,13 @@ public class JSONSingleResponseObject implements JSONResponseObject{
 	private Query query;
 
 	@Override
-	public List<Stock> getStocks() throws Exception{
-		return Arrays.asList(this.query.results.quote);
+	public List<Stock> getStocks() {
+		try {
+			return Arrays.asList(this.query.results.quote);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ArrayList<Stock>();
+		}
 	}
 	
 	private class Query {
