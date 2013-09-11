@@ -8,8 +8,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.bolsadevalores.model.Bookmark;
-import com.example.bolsadevalores.model.Bookmarkable;
 import com.example.bolsadevalores.model.Suggestion;
+import com.example.bolsadevalores.model.interfaces.Bookmarkable;
 
 public class SharedPreferencesAccessor {
 	

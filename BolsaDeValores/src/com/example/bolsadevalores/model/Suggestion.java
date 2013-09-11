@@ -2,6 +2,8 @@ package com.example.bolsadevalores.model;
 
 import java.io.Serializable;
 
+import com.example.bolsadevalores.model.interfaces.Bookmarkable;
+
 public class Suggestion implements Serializable, Bookmarkable{
 	
 	private static final long serialVersionUID = 1L;

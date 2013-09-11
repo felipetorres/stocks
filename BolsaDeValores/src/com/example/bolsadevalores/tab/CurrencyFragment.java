@@ -1,5 +1,7 @@
 package com.example.bolsadevalores.tab;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,15 +19,18 @@ import android.widget.ListView;
 
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.activity.CurrencySearchActivity;
+import com.example.bolsadevalores.adapter.CurrencyListAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.menu.CurrencyContextActionBar;
 import com.example.bolsadevalores.model.Currency;
+import com.example.bolsadevalores.model.interfaces.ResultHandler;
 
-public class CurrencyFragment extends Fragment implements WithTabName{
+public class CurrencyFragment extends Fragment implements WithTabName, ResultHandler{
 
 	private ListView currencyList;
 	private ActionBarActivity activity;
+	private ErrorHandler errorHandler;
 	private View layout;
 	private CurrencyContextActionBar contextActionBar;
 	
@@ -33,6 +38,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 		this.activity = (ActionBarActivity) activity;
+		this.errorHandler = (ErrorHandler) activity;
 	}
 	
 	@Override
@@ -42,7 +48,7 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 		layout = inflater.inflate(R.layout.fragment_currency, null);
 		currencyList = (ListView) layout.findViewById(R.id.currency_list);
 		
-		contextActionBar = new CurrencyContextActionBar(activity, layout, currencyList, (ErrorHandler) activity);
+		contextActionBar = new CurrencyContextActionBar(this, layout);
 		
 		return layout;
 	}
@@ -90,5 +96,22 @@ public class CurrencyFragment extends Fragment implements WithTabName{
 	@Override
 	public String toString() {
 		return "Currencies";
+	}
+
+	@Override
+	public void updateWith(List<Currency> currencies) {
+		try {
+			if(currencies != null) {
+				CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
+				currencyList.setAdapter(adapter);
+			}
+		}catch (Exception e) {
+			errorHandler.onError(e);
+		}
+	}
+
+	@Override
+	public Activity getParent() {
+		return activity;
 	}
 }

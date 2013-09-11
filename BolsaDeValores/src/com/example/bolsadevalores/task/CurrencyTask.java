@@ -6,30 +6,23 @@ import java.util.List;
 
 import org.jsoup.select.Elements;
 
-import android.app.Activity;
 import android.os.AsyncTask;
 import android.view.View;
-import android.widget.ListView;
 
-import com.example.bolsadevalores.adapter.CurrencyListAdapter;
-import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.model.Currency;
+import com.example.bolsadevalores.model.interfaces.ResultHandler;
 import com.example.bolsadevalores.web.YahooWebConnector;
 
 
 public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	
-	private Activity activity;
-	private ListView listView;
-	private ErrorHandler errorHandler;
+	private ResultHandler resultHandler;
 	private ProgressManager progressManager;
 	private boolean withProgress;
 
-	public CurrencyTask(Activity activity, View view, ListView listView, ErrorHandler errorHandler, boolean withProgress) {
-		this.activity = activity;
-		this.listView = listView;
-		this.errorHandler = errorHandler;
+	public CurrencyTask(ResultHandler resultHandler, View view, boolean withProgress) {
+		this.resultHandler = resultHandler;
 		this.withProgress = withProgress;
 		this.progressManager = new ProgressManager(view);
 	}
@@ -62,14 +55,6 @@ public class CurrencyTask extends AsyncTask<String, Object, List<Currency>>{
 	protected void onPostExecute(List<Currency> currencies) {
 		if(withProgress) progressManager.hide();
 		
-		try {
-			if(currencies != null) {
-				CurrencyListAdapter adapter = new CurrencyListAdapter(activity, currencies);
-				listView.setAdapter(adapter);
-			}
-		}catch (Exception e) {
-			errorHandler.onError(e);
-		}
-		
+		resultHandler.updateWith(currencies);
 	}
 }

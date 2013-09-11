@@ -8,6 +8,8 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.jsoup.select.Elements;
 
+import com.example.bolsadevalores.model.interfaces.Bookmarkable;
+
 public class Currency implements Bookmarkable{
 
 	private String symbol;

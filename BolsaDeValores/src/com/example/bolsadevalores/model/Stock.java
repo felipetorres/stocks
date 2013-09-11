@@ -8,6 +8,8 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.example.bolsadevalores.model.interfaces.Bookmarkable;
+
 public class Stock implements Bookmarkable{
 	
 	public String symbol;
