@@ -74,15 +74,26 @@ public class Currency implements Bookmarkable, ResponseElement{
 		//2:09PM EDT
 		this.lastChange = this.lastChange.replaceFirst("(AM|PM).*", "$1");
 		
-		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa")
+		DateTimeFormatter formatFrom;
+		DateTime parsed;
+		try {
+			formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa")
 										.withLocale(Locale.US)
 										.withZone(DateTimeZone.forID("America/New_York"));
 		
-		DateTime parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange)
+			parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange)
 									.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+		} catch (IllegalArgumentException e) {
+			formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy,")
+					.withLocale(Locale.US)
+					.withZone(DateTimeZone.forID("America/New_York"));
+
+			parsed = formatFrom.parseDateTime(this.marketTime)
+					.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+		}
 		
-		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM HH:mm");
-		return parsed.toString(formatTo);
+		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM");
+		return parsed.toString(formatTo) + " " + "00:00";
 	}
 	
 	@Override
