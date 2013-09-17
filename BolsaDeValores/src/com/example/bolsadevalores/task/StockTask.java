@@ -10,6 +10,7 @@ import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONListResponseObject;
 import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
+import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
 import com.example.bolsadevalores.web.YahooWebConnector;
 import com.google.gson.Gson;
@@ -56,8 +57,7 @@ public class StockTask extends
 	protected void onPostExecute(JSONResponseObject result) {
 		if(shouldShowProgress) progressManager.hide();
 		
-		resultHandler.updateWith(result.getStocks());
-			
-			
+		List<Stock> stocks = result.getStocks();
+		if(!stocks.isEmpty()) resultHandler.updateWith(stocks);
 	}
 }
