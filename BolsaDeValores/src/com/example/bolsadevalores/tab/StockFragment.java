@@ -98,13 +98,16 @@ public class StockFragment extends Fragment implements WithTabName, ResultHandle
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.stock, menu);
 		new OptionsMenuDelegator(activity).withSearchView(menu, StockSearchActivity.class);
-		customActionMode.startTicker();
 	}
 	
 	@Override
-	public void onPause() {
-		super.onPause();
-		customActionMode.stopTicker();
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		
+		if (customActionMode != null) {
+			if(isVisibleToUser) customActionMode.startTicker();
+			else customActionMode.stopTicker();
+		}
 	}
 	
 	@Override

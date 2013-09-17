@@ -73,9 +73,6 @@ public class TabHelper {
 			@Override
 			public void onPageSelected(int position) {
 				activity.getSupportActionBar().setSelectedNavigationItem(position);
-				for (int i=0; i<fragments.size(); i++) {
-					if(i!=position) fragments.get(i).onPause();
-				}
 			}
 		});
 	}

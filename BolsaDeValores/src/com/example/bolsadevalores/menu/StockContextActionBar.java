@@ -25,6 +25,7 @@ public class StockContextActionBar {
 	private Handler handler = new Handler();
 	private Activity activity;
 	private View withProgress;
+	private boolean running;
 
 	public StockContextActionBar(ResultHandler resultHandler, View withProgress) {
 		this.resultHandler = resultHandler;
@@ -96,13 +97,18 @@ public class StockContextActionBar {
 				}
 			};
 		}
+		this.startTicker();
 	}
 
 	public void stopTicker() {
 		handler.removeCallbacks(ticker);
+		running = false;
 	}
 	
 	public void startTicker() {
-		handler.post(ticker);
+		if(!running) {
+			handler.post(ticker);
+			running = true;
+		}
 	}
 }

@@ -80,13 +80,16 @@ public class CurrencyFragment extends Fragment implements WithTabName, ResultHan
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		inflater.inflate(R.menu.currency, menu);
 		new OptionsMenuDelegator(activity).withSearchView(menu, CurrencySearchActivity.class);
-		contextActionBar.startTicker();
 	}
 	
 	@Override
-	public void onPause() {
-		super.onPause();
-		contextActionBar.stopTicker();
+	public void setUserVisibleHint(boolean isVisibleToUser) {
+		super.setUserVisibleHint(isVisibleToUser);
+		
+		if(contextActionBar != null) {
+			if(isVisibleToUser) contextActionBar.startTicker();
+			else contextActionBar.stopTicker();
+		}
 	}
 	
 	@Override

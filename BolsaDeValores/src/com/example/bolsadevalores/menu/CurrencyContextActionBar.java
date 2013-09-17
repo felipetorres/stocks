@@ -23,6 +23,7 @@ public class CurrencyContextActionBar {
 	private Handler handler = new Handler();
 	private View layout;
 	private ResultHandler resultHandler;
+	private boolean running = false;
 
 	public CurrencyContextActionBar(ResultHandler resultHandler, View layout) {
 		this.resultHandler = resultHandler;
@@ -92,13 +93,18 @@ public class CurrencyContextActionBar {
 				}
 			};
 		}
+		this.startTicker();
 	}
 
 	public void stopTicker() {
 		handler.removeCallbacks(ticker);
+		running = false;
 	}
 	
 	public void startTicker() {
-		handler.post(ticker);
+		if(!running) {
+			handler.post(ticker);
+			running = true;
+		}
 	}
 }
