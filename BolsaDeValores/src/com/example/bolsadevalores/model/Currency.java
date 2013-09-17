@@ -74,26 +74,36 @@ public class Currency implements Bookmarkable, ResponseElement{
 		//2:09PM EDT
 		this.lastChange = this.lastChange.replaceFirst("(AM|PM).*", "$1");
 		
-		DateTimeFormatter formatFrom;
-		DateTime parsed;
 		try {
-			formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa")
-										.withLocale(Locale.US)
-										.withZone(DateTimeZone.forID("America/New_York"));
-		
-			parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange)
-									.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+			return parsedDateAndTime();
+			
 		} catch (IllegalArgumentException e) {
-			formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy,")
-					.withLocale(Locale.US)
-					.withZone(DateTimeZone.forID("America/New_York"));
-
-			parsed = formatFrom.parseDateTime(this.marketTime)
-					.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+			return parsedDateAtMidnight();
 		}
 		
+	}
+
+	private String parsedDateAtMidnight() {
+		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy,")
+				.withLocale(Locale.US)
+				.withZone(DateTimeZone.forID("America/New_York"));
+
+		DateTime parsed = formatFrom.parseDateTime(this.marketTime)
+				.withZone(DateTimeZone.forID("America/Sao_Paulo"));
 		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM");
 		return parsed.toString(formatTo) + " " + "00:00";
+	}
+
+	private String parsedDateAndTime() {
+		DateTimeFormatter formatFrom = DateTimeFormat.forPattern("EEE, MMM dd, yyyy, hh:mmaa")
+									.withLocale(Locale.US)
+									.withZone(DateTimeZone.forID("America/New_York"));
+
+		DateTime parsed = formatFrom.parseDateTime(this.marketTime + " " + this.lastChange)
+								.withZone(DateTimeZone.forID("America/Sao_Paulo"));
+		
+		DateTimeFormatter formatTo = DateTimeFormat.forPattern("dd/MMM HH:mm");
+		return parsed.toString(formatTo);
 	}
 	
 	@Override
