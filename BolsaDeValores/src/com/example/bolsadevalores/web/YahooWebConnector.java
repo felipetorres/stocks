@@ -40,4 +40,8 @@ public class YahooWebConnector {
 		
 		return this;
 	}
+
+	public String getChartUrlFor(String symbol) {
+		return "http://chart.finance.yahoo.com/z?s="+symbol+"&t=1d&q=l&l=on&z=s&a=v&p=s&lang=en-US&region=BR";
+	}
 }

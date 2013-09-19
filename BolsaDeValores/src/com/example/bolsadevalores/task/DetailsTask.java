@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.example.bolsadevalores.R;
@@ -22,6 +23,7 @@ public class DetailsTask extends
 	private Activity activity;
 	private ProgressManager progressManager;
 	private ErrorHandler errorHandler;
+	private YahooWebConnector webConnector;
 
 	public DetailsTask(Activity activity, ErrorHandler errorHandler) {
 		this.activity = activity;
@@ -41,7 +43,8 @@ public class DetailsTask extends
 
 		String resposta;
 		try {
-			resposta = new YahooWebConnector().connectToStockUrl(stockSymbols);
+			webConnector = new YahooWebConnector();
+			resposta = webConnector.connectToStockUrl(stockSymbols);
 			
 			return new Gson().fromJson(resposta, JSONSingleResponseObject.class);
 		} catch (Exception e) {
@@ -64,9 +67,11 @@ public class DetailsTask extends
 			TextView lastValue = (TextView) activity.findViewById(R.id.details_recent);
 			TextView previousCloseValue = (TextView) activity.findViewById(R.id.details_previous_close);
 			TextView openValue = (TextView) activity.findViewById(R.id.details_open);
+			WebView chart = (WebView) activity.findViewById(R.id.details_chart);
 		
 			name.setText(stock.Name);
 			updatedAt.setText(stock.getPrettyLastTradeDateAndTime());
+			chart.loadUrl(webConnector.getChartUrlFor(stock.getSymbol()));
 			
 			String realtimePercentage = stock.getRealtimePercentage();
 			
