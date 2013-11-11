@@ -4,11 +4,15 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Node;
+import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
 public class YahooWebConnector {
 
 	private static String YAHOO_FINANCE;
+	private String TIME; //lololol
 	
 	public String connectToStockUrl(List<String> symbols) throws Exception {
 		buildStockUrl(symbols);
@@ -18,9 +22,23 @@ public class YahooWebConnector {
 	public Elements connectToCurrencyUrl(String symbol) throws Exception {
 		buildCurrencyUrl(symbol);
 		Document document = Jsoup.connect(YAHOO_FINANCE).get();
-		return document.select("[id~=(l10|c10|p20|t10|market_time)], .time_rtq_content, .title h2");
+		//Elements elements = document.select("[id~=(l10|c10|p20|t10|market_time)], .time_rtq_content, .title h2");
+		Elements elements = document.select(".symbol-name, .stock-price, .change-amount, .change-percentage, .meta");
+		findTimeIn(document);
+		elements.add(new Element(Tag.valueOf("span"),"").attr("class", "time").text(TIME));
+		
+		return elements;
 	}
 	
+	private void findTimeIn(Node node) {
+		List<Node> childNodes = node.childNodes();
+		for (Node child : childNodes) {
+			if (child.nodeName().equals("#comment")) {
+				if (child.toString().contains("Served by Touchdown")) TIME = child.toString();
+			} else findTimeIn(child);
+		}
+	}
+		
 	private YahooWebConnector buildStockUrl(List<String> symbols) {
 		
 		YAHOO_FINANCE = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(";

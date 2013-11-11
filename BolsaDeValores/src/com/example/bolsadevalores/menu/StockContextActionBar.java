@@ -1,5 +1,6 @@
 package com.example.bolsadevalores.menu;
 
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -84,6 +85,12 @@ public class StockContextActionBar {
 		SharedPreferencesAccessor accessor = new SharedPreferencesAccessor(activity, Bookmark.STOCK);
 
 		List<String> bookmarkedStocks = accessor.retrieveBookmarked();
+		
+		if(bookmarkedStocks.isEmpty()) {
+			bookmarkedStocks = Arrays.asList(new String[] {
+					"CIEL3.SA", "^BVSP", "PETR3.SA", "PETR4.SA",
+					"VALE3.SA", "VALE5.SA", "BBDC3.SA", "BBDC4.SA"});
+		}
 
 		if(bookmarkedStocks.size() >= 1) {
 			final String[] stocks = (String[]) bookmarkedStocks.toArray();

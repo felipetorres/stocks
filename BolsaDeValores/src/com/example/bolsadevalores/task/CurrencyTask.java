@@ -48,6 +48,7 @@ public class CurrencyTask extends AsyncTask<String, Object, List<ResponseElement
 			return currencies;
 		
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		} 
 	}
