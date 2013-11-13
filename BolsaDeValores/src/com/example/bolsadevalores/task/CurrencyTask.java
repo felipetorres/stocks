@@ -13,7 +13,7 @@ import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.model.Currency;
 import com.example.bolsadevalores.model.interfaces.ResponseElement;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
-import com.example.bolsadevalores.web.YahooWebConnector;
+import com.example.bolsadevalores.web.WebConnector;
 
 
 public class CurrencyTask extends AsyncTask<String, Object, List<ResponseElement>>{
@@ -42,7 +42,7 @@ public class CurrencyTask extends AsyncTask<String, Object, List<ResponseElement
 		
 		try {
 			for (String symbol : currencySymbols) {
-				Elements responseElements = new YahooWebConnector().connectToCurrencyUrl(symbol);
+				Elements responseElements = new WebConnector().connectToCurrencyUrl(symbol);
 				currencies.add(new Currency(symbol, responseElements));
 			}
 			return currencies;

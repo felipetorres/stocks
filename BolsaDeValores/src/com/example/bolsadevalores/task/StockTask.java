@@ -12,7 +12,7 @@ import com.example.bolsadevalores.json.JSONResponseObject;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
-import com.example.bolsadevalores.web.YahooWebConnector;
+import com.example.bolsadevalores.web.WebConnector;
 import com.google.gson.Gson;
 
 public class StockTask extends
@@ -46,7 +46,7 @@ public class StockTask extends
 		JSONResponseObject newInstance = null;
 		try {
 			newInstance = clazz.newInstance();
-			String resposta = new YahooWebConnector().connectToStockUrl(stockSymbols);
+			String resposta = new WebConnector().connectToStockUrl(stockSymbols);
 			return new Gson().fromJson(resposta, clazz);
 		} catch (Exception e) {
 			return newInstance;

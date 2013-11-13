@@ -14,7 +14,7 @@ import com.example.bolsadevalores.helper.ErrorHandler;
 import com.example.bolsadevalores.helper.ProgressManager;
 import com.example.bolsadevalores.json.JSONSingleResponseObject;
 import com.example.bolsadevalores.model.Stock;
-import com.example.bolsadevalores.web.YahooWebConnector;
+import com.example.bolsadevalores.web.WebConnector;
 import com.google.gson.Gson;
 
 public class DetailsTask extends
@@ -23,7 +23,7 @@ public class DetailsTask extends
 	private Activity activity;
 	private ProgressManager progressManager;
 	private ErrorHandler errorHandler;
-	private YahooWebConnector webConnector;
+	private WebConnector webConnector;
 
 	public DetailsTask(Activity activity, ErrorHandler errorHandler) {
 		this.activity = activity;
@@ -43,7 +43,7 @@ public class DetailsTask extends
 
 		String resposta;
 		try {
-			webConnector = new YahooWebConnector();
+			webConnector = new WebConnector();
 			resposta = webConnector.connectToStockUrl(stockSymbols);
 			
 			return new Gson().fromJson(resposta, JSONSingleResponseObject.class);

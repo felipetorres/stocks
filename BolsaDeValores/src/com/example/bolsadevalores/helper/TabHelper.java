@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarActivity;
 
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.adapter.FragmentPagerCustomAdapter;
+import com.example.bolsadevalores.tab.BitcoinFragment;
 import com.example.bolsadevalores.tab.CurrencyFragment;
 import com.example.bolsadevalores.tab.EstadaoFeedFragment;
 import com.example.bolsadevalores.tab.ExameFeedFragment;
@@ -48,6 +49,7 @@ public class TabHelper {
 		
 		clazzes.add(StockFragment.class);
 		clazzes.add(CurrencyFragment.class);
+		clazzes.add(BitcoinFragment.class);
 
 		addTabsTo(actionBar);
 		return this;

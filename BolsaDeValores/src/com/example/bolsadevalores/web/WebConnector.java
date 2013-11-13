@@ -2,6 +2,8 @@ package com.example.bolsadevalores.web;
 
 import java.util.List;
 
+import org.joda.time.DateMidnight;
+import org.joda.time.DateTime;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -9,8 +11,9 @@ import org.jsoup.nodes.Node;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
 
-public class YahooWebConnector {
+public class WebConnector {
 
+	private static String BITCOIN_URL = "https://www.mercadobitcoin.com.br/api/trades/";
 	private static String YAHOO_FINANCE;
 	private String TIME; //lololol
 	
@@ -30,6 +33,12 @@ public class YahooWebConnector {
 		return elements;
 	}
 	
+	public String connectToBitcoinUrl() throws Exception {
+		DateMidnight dateTime = new DateTime().toDateMidnight();
+		String millis = String.valueOf(dateTime.getMillis()).substring(0, 10);
+		return new HttpConnector().getTo(BITCOIN_URL + millis + "/");
+	}
+	
 	private void findTimeIn(Node node) {
 		List<Node> childNodes = node.childNodes();
 		for (Node child : childNodes) {
@@ -39,7 +48,7 @@ public class YahooWebConnector {
 		}
 	}
 		
-	private YahooWebConnector buildStockUrl(List<String> symbols) {
+	private WebConnector buildStockUrl(List<String> symbols) {
 		
 		YAHOO_FINANCE = "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quotes%20where%20symbol%20in%20(";
 		
@@ -52,7 +61,7 @@ public class YahooWebConnector {
 		return this;
 	}
 	
-	private YahooWebConnector buildCurrencyUrl(String symbol) {
+	private WebConnector buildCurrencyUrl(String symbol) {
 		
 		YAHOO_FINANCE = "http://finance.yahoo.com/q?s=" + symbol; //EURUSD=X
 		
