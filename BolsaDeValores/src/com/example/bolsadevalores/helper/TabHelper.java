@@ -13,6 +13,7 @@ import android.support.v7.app.ActionBarActivity;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.adapter.FragmentPagerCustomAdapter;
 import com.example.bolsadevalores.tab.BitcoinFragment;
+import com.example.bolsadevalores.tab.BrasilEconomicoFeedFragment;
 import com.example.bolsadevalores.tab.CurrencyFragment;
 import com.example.bolsadevalores.tab.EstadaoFeedFragment;
 import com.example.bolsadevalores.tab.ExameFeedFragment;
@@ -38,6 +39,7 @@ public class TabHelper {
 		clazzes.add(InfoMoneyFeedFragment.class);
 		clazzes.add(ExameFeedFragment.class);
 		clazzes.add(ValorFeedFragment.class);
+		clazzes.add(BrasilEconomicoFeedFragment.class);
 		clazzes.add(EstadaoFeedFragment.class);
 		clazzes.add(ReutersFeedFragment.class);
 
