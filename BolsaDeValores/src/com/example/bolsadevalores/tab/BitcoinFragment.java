@@ -7,6 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -14,6 +17,7 @@ import android.widget.ListView;
 import com.example.bolsadevalores.R;
 import com.example.bolsadevalores.adapter.BitcoinListAdapter;
 import com.example.bolsadevalores.helper.ErrorHandler;
+import com.example.bolsadevalores.helper.OptionsMenuDelegator;
 import com.example.bolsadevalores.menu.BitcoinContextActionBar;
 import com.example.bolsadevalores.model.interfaces.ResponseElement;
 import com.example.bolsadevalores.model.interfaces.ResultHandler;
@@ -78,6 +82,17 @@ public class BitcoinFragment extends Fragment implements WithTabName, ResultHand
 		}catch (Exception e) {
 			errorHandler.onError(e);
 		}
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.bitcoin, menu);
+		new OptionsMenuDelegator(activity);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		return new OptionsMenuDelegator(activity).select(item);
 	}
 
 	@Override

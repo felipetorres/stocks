@@ -32,6 +32,12 @@
                 android:value="com.example.bolsadevalores.activity.MarketActivity"/>
         </activity>
         <activity
+            android:name="com.example.bolsadevalores.activity.BitcoinFeedActivity"
+            android:label="@string/title_activity_bitcoin_feed" >
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.bolsadevalores.activity.MarketActivity"/>
+        </activity>
+        <activity
             android:name="com.example.bolsadevalores.activity.StockSearchActivity"
             android:label="@string/title_activity_search_stock" >
             <meta-data android:name="android.support.PARENT_ACTIVITY"

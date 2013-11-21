@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:com.example.bolsadevalores="http://schemas.android.com/apk/res-auto" >
+
+    <item
+        android:id="@+id/menu_bitcoin_feeds"
+        android:icon="@drawable/ic_rss"
+        android:title="@string/menu_bitcoin_feeds"
+        com.example.bolsadevalores:showAsAction="ifRoom"/>
+</menu>

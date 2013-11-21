@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.bolsadevalores.R;
+import com.example.bolsadevalores.activity.BitcoinFeedActivity;
 import com.example.bolsadevalores.activity.MyFeedActivity;
 
 public class OptionsMenuDelegator {
@@ -47,6 +48,10 @@ public class OptionsMenuDelegator {
 		case R.id.menu_feeds:
 			Intent feed = new Intent(activity, MyFeedActivity.class);
 			activity.startActivity(feed);
+			return true;
+		case R.id.menu_bitcoin_feeds:
+			Intent bitcoinFeed = new Intent(activity, BitcoinFeedActivity.class);
+			activity.startActivity(bitcoinFeed);
 			return true;
 		default:
 			return false;

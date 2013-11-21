@@ -8,12 +8,14 @@
     <string name="error_dialog_refresh">Refresh</string>
     
     <string name="title_activity_feed">Feeds</string>
+    <string name="title_activity_bitcoin_feed">Bitcoin Feeds</string>
     <string name="title_activity_search_stock">Results</string>
     <string name="title_activity_details">Details</string>
     <string name="title_activity_market">Market</string>
     
     <string name="menu_search">Search</string>
     <string name="menu_feeds">Feeds</string>
+    <string name="menu_bitcoin_feeds">Bitcoin Feeds</string>
     <string name="menu_currency">Currency</string>
     <string name="menu_currency_search">Currency search</string>
     
