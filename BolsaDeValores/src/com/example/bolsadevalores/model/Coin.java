@@ -12,8 +12,10 @@ public class Coin implements ResponseElement {
 	private long date;
 	private double price;
 	private double percentageChange;
+	private String name;
 	
-	public Coin(long date, double price, double percentageChange) {
+	public Coin(String name, long date, double price, double percentageChange) {
+		this.name = name;
 		this.date = date;
 		this.price = price;
 		this.percentageChange = percentageChange;
@@ -35,6 +37,10 @@ public class Coin implements ResponseElement {
 	
 	public String getFormattedPrice() {
 		return format(price);
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public String getFormattedPercentageChange() {

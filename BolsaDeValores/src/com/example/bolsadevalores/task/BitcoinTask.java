@@ -36,26 +36,39 @@ public class BitcoinTask extends AsyncTask<String, Object, List<Coin>>{
 	protected List<Coin> doInBackground(String... params) {
 		
 		try {
-			String response = new WebConnector().connectToBitcoinUrl();
+			String bitcoinTrades = new WebConnector().connectToBitcoinUrl();
+			Coin bitcoin = buildCoinFrom(bitcoinTrades, "BTC");
 			
-			return new Gson().fromJson(response, new TypeToken<ArrayList<Coin>>(){}.getType());
+			String litecoinTrades = new WebConnector().connectToLitecoinUrl();
+			Coin litecoin = buildCoinFrom(litecoinTrades, "LTC");
+			
+			return Arrays.asList(new Coin[]{bitcoin, litecoin});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
-	
-	@Override
-	protected void onPostExecute(List<Coin> trades) {
-		if(withProgress) progressManager.hide();
+
+	private Coin buildCoinFrom(String response, String coinName) {
+		List<Coin> trades = new Gson().fromJson(response, new TypeToken<ArrayList<Coin>>(){}.getType());
 		
 		if(!trades.isEmpty()) {
 			double open = trades.get(0).getPrice();
 			Coin last = trades.get(trades.size()-1);
 			double recent = last.getPrice();
 			long lastDate = last.getDate();
-				
-			resultHandler.updateWith(Arrays.asList(new Coin(lastDate, recent, ((recent/open)-1)*100)));
+			
+			return new Coin(coinName, lastDate, recent, ((recent/open)-1)*100);
+		}
+		return null;
+	}
+	
+	@Override
+	protected void onPostExecute(List<Coin> coins) {
+		if(withProgress) progressManager.hide();
+		
+		if(!coins.isEmpty()) {	
+			resultHandler.updateWith(coins);
 		}
 	}
 }

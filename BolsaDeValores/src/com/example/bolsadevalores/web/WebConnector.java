@@ -14,6 +14,7 @@ import org.jsoup.select.Elements;
 public class WebConnector {
 
 	private static String BITCOIN_URL = "https://www.mercadobitcoin.com.br/api/trades/";
+	private static String LITECOIN_URL = "https://www.mercadobitcoin.com.br/api/trades_litecoin/";
 	private static String YAHOO_FINANCE;
 	private String TIME; //lololol
 	
@@ -34,9 +35,19 @@ public class WebConnector {
 	}
 	
 	public String connectToBitcoinUrl() throws Exception {
+		String millis = getMillis();
+		return new HttpConnector().getTo(BITCOIN_URL + millis + "/");
+	}
+
+	public String connectToLitecoinUrl() throws Exception {
+		String millis = getMillis();
+		return new HttpConnector().getTo(LITECOIN_URL + millis + "/");
+	}
+	
+	private String getMillis() {
 		DateMidnight dateTime = new DateTime().toDateMidnight();
 		String millis = String.valueOf(dateTime.getMillis()).substring(0, 10);
-		return new HttpConnector().getTo(BITCOIN_URL + millis + "/");
+		return millis;
 	}
 	
 	private void findTimeIn(Node node) {

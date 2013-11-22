@@ -54,7 +54,7 @@ public class BitcoinListAdapter extends BaseAdapter{
 		ColorHelper colorHelper = new ColorHelper(activity);
 		String textPercentChange = coin.getFormattedPercentageChange();
 		
-		name.setText("BTC/BRL");
+		name.setText(coin.getName()+"/BRL");
 		value.setText(coin.getFormattedPrice());
 		lastChange.setText(coin.getLastChange());
 		percentChange.setText(textPercentChange);
